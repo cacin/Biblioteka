@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BibliotekaDb", "Biblioteka\BibliotekaDb.csproj", "{3603C4F0-5561-4C84-9E14-2888C6AF25F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{873FC33F-E8B7-40CC-83B2-93505139F626}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliotekaAPI", "BibliotekaAPI\BibliotekaAPI.csproj", "{E4DE9A38-DCFF-417D-A3CC-D2507CF77BC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3603C4F0-5561-4C84-9E14-2888C6AF25F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3603C4F0-5561-4C84-9E14-2888C6AF25F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3603C4F0-5561-4C84-9E14-2888C6AF25F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3603C4F0-5561-4C84-9E14-2888C6AF25F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4DE9A38-DCFF-417D-A3CC-D2507CF77BC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4DE9A38-DCFF-417D-A3CC-D2507CF77BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4DE9A38-DCFF-417D-A3CC-D2507CF77BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4DE9A38-DCFF-417D-A3CC-D2507CF77BC4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3603C4F0-5561-4C84-9E14-2888C6AF25F1} = {873FC33F-E8B7-40CC-83B2-93505139F626}
+		{E4DE9A38-DCFF-417D-A3CC-D2507CF77BC4} = {873FC33F-E8B7-40CC-83B2-93505139F626}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B5F40BB-D39E-41EE-A0C3-D65550F242A8}
+	EndGlobalSection
+EndGlobal

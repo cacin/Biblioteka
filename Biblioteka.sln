@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BibliotekaDb", "Biblioteka\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{873FC33F-E8B7-40CC-83B2-93505139F626}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliotekaAPI", "BibliotekaAPI\BibliotekaAPI.csproj", "{E4DE9A38-DCFF-417D-A3CC-D2507CF77BC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BibliotekaAPI", "BibliotekaAPI\BibliotekaAPI.csproj", "{E4DE9A38-DCFF-417D-A3CC-D2507CF77BC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

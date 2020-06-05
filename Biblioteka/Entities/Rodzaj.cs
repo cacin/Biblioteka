@@ -10,8 +10,8 @@ namespace BibliotekaDb.Entities
         DVD,
         CD,
         Vinyl
-
     }
+
     public class Rodzaj
     {
         private Rodzaj(RodzajEnum @enum)

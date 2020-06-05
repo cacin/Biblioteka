@@ -1,0 +1,69 @@
+﻿@model IEnumerable<BibliotekaWeb.HttpClient.Pozycja>
+
+@{
+    ViewData["Title"] = "Pozycje w bibliotece";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h1>@ViewData["Title"]</h1>
+<br />
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tytul)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rok)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Rodzaj)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tytul)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rok)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Rodzaj)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Foto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PozycjaId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PozycjaId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PozycjaId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BibliotekaWeb;
 using BibliotekaWeb.HttpClient;
+using WebApplication.Services;
+using BibliotekaApi.Models;
 
 namespace BibliotekaWeb.Controllers
 {
     public class PozycjeController : Controller
     {
         private readonly BazaContextTemporary _context;
+        private readonly IPozycjeService _pozycjeService;
 
-        public PozycjeController(BazaContextTemporary context)
+        public PozycjeController(BazaContextTemporary context, IPozycjeService pozycjeService)
         {
             _context = context;
+            _pozycjeService = pozycjeService;
         }
 
         // GET: Pozycje
@@ -26,21 +30,19 @@ namespace BibliotekaWeb.Controllers
         }
 
         // GET: Pozycje/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaDetailsAsync(id);
 
-            var pozycja = await _context.Pozycje
+            /*var pozycja = await _context.Pozycje
                 .FirstOrDefaultAsync(m => m.PozycjaId == id);
-            if (pozycja == null)
+            */
+            if (pozycjaViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(pozycja);
+            return View(pozycjaViewModel);
         }
 
         // GET: Pozycje/Create

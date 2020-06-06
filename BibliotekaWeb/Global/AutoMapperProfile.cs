@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication
+namespace BibliotekaWeb
 {
-    public class MapperProfile : Profile
+    public class AutoMapperProfile : Profile
     {
-        public MapperProfile()
+        public AutoMapperProfile()
         {
             CreateMap<PozycjaViewModel, Pozycja>().ReverseMap();
         }

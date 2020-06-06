@@ -15,13 +15,13 @@ namespace BibliotekaWeb.HttpClient
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.6.0.0 (NJsonSchema v10.1.18.0 (Newtonsoft.Json v11.0.0.0))")]
-    public partial class PozycjeClient
+    public partial class BibliotekaApiHttpClient
     {
         private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
-        public PozycjeClient(string baseUrl, System.Net.Http.HttpClient httpClient)
+        public BibliotekaApiHttpClient(string baseUrl, System.Net.Http.HttpClient httpClient)
         {
             BaseUrl = baseUrl;
             _httpClient = httpClient;

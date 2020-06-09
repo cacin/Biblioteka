@@ -25,6 +25,8 @@ namespace BibliotekaDb
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            builder.SeedEnumValues<Rodzaj, RodzajEnum>(e => e);
             base.OnModelCreating(builder);
         }
 

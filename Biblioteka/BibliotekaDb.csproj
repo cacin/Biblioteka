@@ -12,6 +12,8 @@
     <Compile Remove="Migrations\20200601230307_Dodanie Enum.Designer.cs" />
     <Compile Remove="Migrations\20200601230917_Doanie Enum.cs" />
     <Compile Remove="Migrations\20200601230917_Doanie Enum.Designer.cs" />
+    <Compile Remove="Migrations\20200609210815_Dodanie Enum.cs" />
+    <Compile Remove="Migrations\20200609210815_Dodanie Enum.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

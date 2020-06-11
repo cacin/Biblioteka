@@ -1,19 +1,19 @@
 ﻿using AutoMapper;
-using BibliotekaApi.Models;
-using BibliotekaWeb;
-using BibliotekaWeb.HttpClient;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using BibliotekaWeb;
+using BibliotekaWeb.Models;
+using BibliotekaWeb.Services;
+using BibliotekaWeb.HttpClients;
 
-namespace WebApplication.Services
+namespace BibliotekaWeb.Services
 {
     public class PozycjeService : IPozycjeService
     {
-        //string url = "https://localhost:44342/";
         HttpClient httpClient = new HttpClient();
 
         private readonly IMapper _mapper;
@@ -25,10 +25,18 @@ namespace WebApplication.Services
             _config = config;
         }
 
+        public async Task<PozycjaViewModel[]> GetPozycjaDetailsAsync()
+        {
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
+            ICollection<Pozycja> dtoItems = await serviceClient.ApiPozycjeGetAsync(System.Threading.CancellationToken.None);
+
+            return _mapper.Map<ICollection<PozycjaViewModel>>(dtoItems).ToArray();
+        }
+
         public async Task<PozycjaViewModel> GetPozycjaDetailsAsync(int Id)
         {
-            BibliotekaApiHttpClient todoServiceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
-            Pozycja dtoItems = await todoServiceClient.Pozycje3Async(Id);
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
+            Pozycja dtoItems = await serviceClient.ApiPozycjeGetAsync(Id);
 
             return _mapper.Map<PozycjaViewModel>(dtoItems);
         }

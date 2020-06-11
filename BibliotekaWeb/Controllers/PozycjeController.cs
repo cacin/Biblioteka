@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BibliotekaWeb;
-using BibliotekaWeb.HttpClient;
-using WebApplication.Services;
-using BibliotekaApi.Models;
+using BibliotekaWeb.HttpClients;
+using BibliotekaWeb.Services;
+using BibliotekaWeb.Models;
 
 namespace BibliotekaWeb.Controllers
 {
@@ -29,7 +29,14 @@ namespace BibliotekaWeb.Controllers
         public async Task<IActionResult> Index()
         {
             //return View(await _context.Pozycje.ToListAsync());
-            return View(null);
+
+            PozycjaViewModel[] pozycjaViewModel = await _pozycjeService.GetPozycjaDetailsAsync();
+            if (pozycjaViewModel == null || pozycjaViewModel.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return View(pozycjaViewModel);
         }
 
         // GET: Pozycje/Details/5

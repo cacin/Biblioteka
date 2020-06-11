@@ -1,4 +1,4 @@
-﻿@model BibliotekaApi.Models.PozycjaViewModel
+﻿@model BibliotekaWeb.Models.PozycjaViewModel
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -28,12 +28,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Rok)
         </dd>
-        @*<dt class = "col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Rodzaj)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Rodzaj)
-        </dd>*@
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Foto)
         </dt>

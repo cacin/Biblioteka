@@ -6,7 +6,7 @@ using System.Reflection.Metadata;
 using System.Text;
 
 
-namespace BibliotekaApi.Models
+namespace BibliotekaWeb.Models
 {
 
     public class PozycjaViewModel

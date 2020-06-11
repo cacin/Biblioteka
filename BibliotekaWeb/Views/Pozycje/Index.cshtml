@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BibliotekaWeb.HttpClient.Pozycja>
+﻿@model IEnumerable<BibliotekaWeb.Models.PozycjaViewModel>
 
 @{
     ViewData["Title"] = "Pozycje w bibliotece";
@@ -25,9 +25,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Rok)
             </th>
-            @*<th>
+            <th>
                 @Html.DisplayNameFor(model => model.Rodzaj)
-            </th>*@
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Foto)
             </th>
@@ -49,9 +49,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Rok)
             </td>
-            @*<td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Rodzaj)
-            </td>*@
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Foto)
             </td>

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BibliotekaApi.Models;
-using BibliotekaWeb.HttpClient;
+using BibliotekaWeb.Models;
+using BibliotekaWeb.HttpClients;
 using System;
 using System.Collections.Generic;
 using System.Linq;

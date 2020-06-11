@@ -1,13 +1,14 @@
-﻿using BibliotekaApi.Models;
+﻿using BibliotekaWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication.Services
+namespace BibliotekaWeb.Services
 {
     public interface IPozycjeService
     {
+        Task<PozycjaViewModel[]> GetPozycjaDetailsAsync();
         Task<PozycjaViewModel> GetPozycjaDetailsAsync(int id);
 
         //Task<Guid> AddItemAsync(TodoItemViewModel newItem, AppUser user);

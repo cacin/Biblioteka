@@ -10,7 +10,7 @@
 #pragma warning disable 1573 // Disable "CS1573 Parameter '...' has no matching param tag in the XML comment for ...
 #pragma warning disable 1591 // Disable "CS1591 Missing XML comment for publicly visible type or member ..."
 
-namespace BibliotekaWeb.HttpClient
+namespace BibliotekaWeb.HttpClients
 {
     using System = global::System;
 
@@ -51,16 +51,16 @@ namespace BibliotekaWeb.HttpClient
         /// <summary>Lista pozycji w bibliotece</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task PozycjeAsync()
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pozycja>> ApiPozycjeGetAsync()
         {
-            return PozycjeAsync(System.Threading.CancellationToken.None);
+            return ApiPozycjeGetAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Lista pozycji w bibliotece</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task PozycjeAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pozycja>> ApiPozycjeGetAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Pozycje");
@@ -71,6 +71,7 @@ namespace BibliotekaWeb.HttpClient
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
@@ -90,9 +91,16 @@ namespace BibliotekaWeb.HttpClient
                         ProcessResponse(client_, response_);
 
                         var status_ = ((int)response_.StatusCode).ToString();
+                        if (status_ == "200")
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Pozycja>>(response_, headers_).ConfigureAwait(false);
+                            return objectResponse_.Object;
+                        }
+                        else
                         if (status_ == "204")
                         {
-                            return;
+                            string responseText_ = (response_.Content == null) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Success", (int)response_.StatusCode, responseText_, headers_, null);
                         }
                         else
                         if (status_ == "404")
@@ -106,6 +114,8 @@ namespace BibliotekaWeb.HttpClient
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
                         }
+
+                        return default(System.Collections.Generic.ICollection<Pozycja>);
                     }
                     finally
                     {
@@ -122,16 +132,16 @@ namespace BibliotekaWeb.HttpClient
         /// <summary>Dodanie pozycji w bibliotece</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<Pozycja> Pozycje2Async(Pozycja body)
+        public System.Threading.Tasks.Task<Pozycja> ApiPozycjePostAsync(Pozycja body)
         {
-            return Pozycje2Async(body, System.Threading.CancellationToken.None);
+            return ApiPozycjePostAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Dodanie pozycji w bibliotece</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<Pozycja> Pozycje2Async(Pozycja body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<Pozycja> ApiPozycjePostAsync(Pozycja body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Pozycje");
@@ -194,16 +204,16 @@ namespace BibliotekaWeb.HttpClient
         /// <summary>Pobranie informacji o pozycji w bibliotece</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<Pozycja> Pozycje3Async(int id)
+        public System.Threading.Tasks.Task<Pozycja> ApiPozycjeGetAsync(int id)
         {
-            return Pozycje3Async(id, System.Threading.CancellationToken.None);
+            return ApiPozycjeGetAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Pobranie informacji o pozycji w bibliotece</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<Pozycja> Pozycje3Async(int id, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<Pozycja> ApiPozycjeGetAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -273,16 +283,16 @@ namespace BibliotekaWeb.HttpClient
         /// <summary>Modyfikacja pozycji w bibliotece</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task Pozycje4Async(int id, Pozycja body)
+        public System.Threading.Tasks.Task ApiPozycjePutAsync(int id, Pozycja body)
         {
-            return Pozycje4Async(id, body, System.Threading.CancellationToken.None);
+            return ApiPozycjePutAsync(id, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Modyfikacja pozycji w bibliotece</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task Pozycje4Async(int id, Pozycja body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task ApiPozycjePutAsync(int id, Pozycja body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -357,16 +367,16 @@ namespace BibliotekaWeb.HttpClient
         /// <summary>Usunięcie pozycji z biblioteki</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<Pozycja> Pozycje5Async(int id)
+        public System.Threading.Tasks.Task<Pozycja> ApiPozycjeDeleteAsync(int id)
         {
-            return Pozycje5Async(id, System.Threading.CancellationToken.None);
+            return ApiPozycjeDeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Usunięcie pozycji z biblioteki</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<Pozycja> Pozycje5Async(int id, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<Pozycja> ApiPozycjeDeleteAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -530,36 +540,6 @@ namespace BibliotekaWeb.HttpClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.18.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class ProblemDetails
-    {
-        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Type { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Title { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Status { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("detail", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Detail { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("instance", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Instance { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.18.0 (Newtonsoft.Json v11.0.0.0)")]
     public enum RodzajEnum
     {
         _0 = 0,
@@ -589,14 +569,44 @@ namespace BibliotekaWeb.HttpClient
         [Newtonsoft.Json.JsonProperty("rok", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Rok { get; set; }
 
-        //[Newtonsoft.Json.JsonProperty("rodzaj", Required = Newtonsoft.Json.Required.Always)]
-        //public RodzajEnum Rodzaj { get; set; }
+        [Newtonsoft.Json.JsonProperty("rodzaj", Required = Newtonsoft.Json.Required.Always)]
+        public RodzajEnum Rodzaj { get; set; }
 
         [Newtonsoft.Json.JsonProperty("foto", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Foto { get; set; }
 
         [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool Status { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.18.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class ProblemDetails
+    {
+        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Type { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Title { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Status { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("detail", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Detail { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("instance", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Instance { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
 
 
     }

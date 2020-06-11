@@ -1,22 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using AutoMapper;
-using BibliotekaAuthDb;
+using BibliotekaWeb;
 using BibliotekaAuthDb.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BibliotekaWeb.Services;
+using BibliotekaAuthDb;
 using Microsoft.Extensions.Hosting;
-using WebApplication.Services;
 
 namespace BibliotekaWeb
 {
@@ -33,12 +33,12 @@ namespace BibliotekaWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AuthDatabaseContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                   b => b.MigrationsAssembly("BibliotekaAuthDb")));
+        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+            b => b.MigrationsAssembly("AuthDatabase")));
 
             services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<AuthDatabaseContext>()
-                .AddDefaultTokenProviders();
+              .AddEntityFrameworkStores<AuthDatabaseContext>()
+              .AddDefaultTokenProviders();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -46,15 +46,14 @@ namespace BibliotekaWeb
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-            services.AddControllersWithViews();
-
+            //  services.AddCors();
             services.AddTransient<IPozycjeService, PozycjeService>();
-            //services.AddAutoMapper();
             services.AddAutoMapper(typeof(Startup));
 
-            services.Configure<BibliotekaApiConfiguration>(Configuration.GetSection("BibliotekaApiConfiguration"));
+            services.AddAuthentication();
 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.Configure<BibliotekaApiConfiguration>(Configuration.GetSection("BibliotekaApiConfiguration"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,11 +69,20 @@ namespace BibliotekaWeb
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            //app.UseCors(builder =>
+            //{
+            //    builder.AllowAnyHeader();
+            //    builder.AllowAnyMethod();
+            //    builder.AllowAnyOrigin();
+            //});
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseCookiePolicy();            
+            
             app.UseRouting();
-
+            
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

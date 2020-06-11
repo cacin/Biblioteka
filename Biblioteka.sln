@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BibliotekaAPI", "Biblioteka
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WEB", "WEB", "{57BC3316-38D2-425A-B577-FD1E4126EA2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliotekaWeb", "BibliotekaWeb\BibliotekaWeb.csproj", "{B937D513-B8F8-42C8-A927-2F624A0F2652}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BibliotekaWeb", "BibliotekaWeb\BibliotekaWeb.csproj", "{B937D513-B8F8-42C8-A927-2F624A0F2652}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliotekaAuthDb", "BibliotekaAuthDb\BibliotekaAuthDb.csproj", "{A064E4B1-367D-4A92-885B-AA02F856706F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{B937D513-B8F8-42C8-A927-2F624A0F2652}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B937D513-B8F8-42C8-A927-2F624A0F2652}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B937D513-B8F8-42C8-A927-2F624A0F2652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A064E4B1-367D-4A92-885B-AA02F856706F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A064E4B1-367D-4A92-885B-AA02F856706F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A064E4B1-367D-4A92-885B-AA02F856706F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A064E4B1-367D-4A92-885B-AA02F856706F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{3603C4F0-5561-4C84-9E14-2888C6AF25F1} = {873FC33F-E8B7-40CC-83B2-93505139F626}
 		{E4DE9A38-DCFF-417D-A3CC-D2507CF77BC4} = {873FC33F-E8B7-40CC-83B2-93505139F626}
 		{B937D513-B8F8-42C8-A927-2F624A0F2652} = {57BC3316-38D2-425A-B577-FD1E4126EA2F}
+		{A064E4B1-367D-4A92-885B-AA02F856706F} = {57BC3316-38D2-425A-B577-FD1E4126EA2F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B5F40BB-D39E-41EE-A0C3-D65550F242A8}

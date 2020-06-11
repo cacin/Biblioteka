@@ -14,19 +14,22 @@ namespace BibliotekaWeb.Controllers
 {
     public class PozycjeController : Controller
     {
-        private readonly BazaContextTemporary _context;
+        //private readonly BazaContextTemporary _context;
         private readonly IPozycjeService _pozycjeService;
 
-        public PozycjeController(BazaContextTemporary context, IPozycjeService pozycjeService)
+        public PozycjeController(
+            //BazaContextTemporary context, 
+            IPozycjeService pozycjeService)
         {
-            _context = context;
+            //_context = context;
             _pozycjeService = pozycjeService;
         }
 
         // GET: Pozycje
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Pozycje.ToListAsync());
+            //return View(await _context.Pozycje.ToListAsync());
+            return View(null);
         }
 
         // GET: Pozycje/Details/5
@@ -60,8 +63,8 @@ namespace BibliotekaWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(pozycja);
-                await _context.SaveChangesAsync();
+                //_context.Add(pozycja);
+                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(pozycja);
@@ -75,12 +78,13 @@ namespace BibliotekaWeb.Controllers
                 return NotFound();
             }
 
-            var pozycja = await _context.Pozycje.FindAsync(id);
+            /*var pozycja = await _context.Pozycje.FindAsync(id);
             if (pozycja == null)
             {
                 return NotFound();
             }
-            return View(pozycja);
+            return View(pozycja);*/
+            return View(null);
         }
 
         // POST: Pozycje/Edit/5
@@ -99,8 +103,8 @@ namespace BibliotekaWeb.Controllers
             {
                 try
                 {
-                    _context.Update(pozycja);
-                    await _context.SaveChangesAsync();
+                    //_context.Update(pozycja);
+                    //await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -126,14 +130,15 @@ namespace BibliotekaWeb.Controllers
                 return NotFound();
             }
 
-            var pozycja = await _context.Pozycje
-                .FirstOrDefaultAsync(m => m.PozycjaId == id);
+            /*var pozycja = await _context.Pozycje.FirstOrDefaultAsync(m => m.PozycjaId == id);
             if (pozycja == null)
             {
                 return NotFound();
             }
-
             return View(pozycja);
+            */
+            return View(null);
+
         }
 
         // POST: Pozycje/Delete/5
@@ -141,15 +146,16 @@ namespace BibliotekaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var pozycja = await _context.Pozycje.FindAsync(id);
+            /*var pozycja = await _context.Pozycje.FindAsync(id);
             _context.Pozycje.Remove(pozycja);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();*/
             return RedirectToAction(nameof(Index));
         }
 
         private bool PozycjaExists(int id)
         {
-            return _context.Pozycje.Any(e => e.PozycjaId == id);
+            //return _context.Pozycje.Any(e => e.PozycjaId == id);
+            return true;
         }
     }
 }

@@ -9,6 +9,8 @@ using BibliotekaWeb;
 using BibliotekaWeb.HttpClients;
 using BibliotekaWeb.Services;
 using BibliotekaWeb.Models;
+using Microsoft.AspNetCore.Identity;
+using BibliotekaAuthDb.Entities;
 
 namespace BibliotekaWeb.Controllers
 {
@@ -16,25 +18,33 @@ namespace BibliotekaWeb.Controllers
     {
         //private readonly BazaContextTemporary _context;
         private readonly IPozycjeService _pozycjeService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public PozycjeController(
-            //BazaContextTemporary context, 
-            IPozycjeService pozycjeService)
+        public PozycjeController( 
+            IPozycjeService pozycjeService,
+            UserManager<AppUser> userManager)
         {
             //_context = context;
             _pozycjeService = pozycjeService;
+            _userManager = userManager;
         }
 
         // GET: Pozycje
         public async Task<IActionResult> Index()
         {
             //return View(await _context.Pozycje.ToListAsync());
+            var uzytkownik = await _userManager.GetUserAsync(User);
+            if (uzytkownik == null)
+            {
+                return Challenge();
+            }
 
-            PozycjaViewModel[] pozycjaViewModel = await _pozycjeService.GetPozycjaDetailsAsync();
-            if (pozycjaViewModel == null || pozycjaViewModel.Count() == 0)
+
+            PozycjaViewModel[] pozycjaViewModel = await _pozycjeService.GetPozycjaDetailsAsync(uzytkownik.Id);
+            /*if (pozycjaViewModel == null || pozycjaViewModel.Count() == 0)
             {
                 return NotFound();
-            }
+            }*/
 
             return View(pozycjaViewModel);
         }

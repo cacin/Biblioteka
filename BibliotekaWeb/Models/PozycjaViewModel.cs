@@ -21,7 +21,7 @@ namespace BibliotekaWeb.Models
         public RodzajEnum Rodzaj { get; set; }
         public string Foto { get; set; }
         public bool Status { get; set; }
-        //public string Uzytkownik { get; set; }
+        public string Uzytkownik { get; set; }
     }
 
     public enum RodzajEnum

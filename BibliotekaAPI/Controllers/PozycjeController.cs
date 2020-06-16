@@ -23,16 +23,17 @@ namespace BibliotekaAPI.Controllers
 
         // GET: api/Pozycje
         /// <summary>
-        /// Lista pozycji w bibliotece
+        /// Lista pozycji w bibliotece dla wskazanego uzytkownika
         /// </summary>
+        /// /// <param name="uzytkownik"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pozycja>>> GetPozycje()
+        public async Task<ActionResult<IEnumerable<Pozycja>>> GetPozycje(string uzytkownik)
         {
-            return await _context.Pozycje.ToListAsync();
+            return await _context.Pozycje.Where(x => x.Uzytkownik==uzytkownik).ToListAsync();
         }
 
         // GET: api/Pozycje/5

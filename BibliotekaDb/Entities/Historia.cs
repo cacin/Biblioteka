@@ -17,7 +17,7 @@ namespace BibliotekaDb.Entities
         public DateTime? DataDo { get; set; }
         public string Osoba { get; set; }
         //public string Uzytkownik { get; set; }
-        public int PozycjaId { get; set; }
+        //public int PozycjaId { get; set; }
         public Pozycja Pozycja { get; set; }
     }
 }

@@ -21,7 +21,6 @@ namespace BibliotekaAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Pozycje
         /// <summary>
         /// Lista pozycji w bibliotece dla wskazanego uzytkownika
         /// </summary>
@@ -36,7 +35,6 @@ namespace BibliotekaAPI.Controllers
             return await _context.Pozycje.Where(x => x.Uzytkownik==uzytkownik).ToListAsync();
         }
 
-        // GET: api/Pozycje/5
         /// <summary>
         /// Pobranie informacji o pozycji w bibliotece
         /// </summary>
@@ -57,9 +55,6 @@ namespace BibliotekaAPI.Controllers
             return Ok(pozycja);
         }
 
-        // PUT: api/Pozycje/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         /// <summary>
         /// Modyfikacja pozycji w bibliotece
         /// </summary>
@@ -97,9 +92,6 @@ namespace BibliotekaAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Pozycje
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         /// <summary>
         /// Dodanie pozycji w bibliotece
         /// </summary>
@@ -115,7 +107,6 @@ namespace BibliotekaAPI.Controllers
             return CreatedAtAction("GetPozycja", new { id = pozycja.PozycjaId }, pozycja);
         }
 
-        // DELETE: api/Pozycje/5
         /// <summary>
         /// Usunięcie pozycji z biblioteki
         /// </summary>
@@ -137,6 +128,7 @@ namespace BibliotekaAPI.Controllers
 
             return Ok(pozycja);
         }
+
 
         private bool PozycjaExists(int id)
         {

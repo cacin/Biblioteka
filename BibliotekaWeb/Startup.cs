@@ -34,7 +34,7 @@ namespace BibliotekaWeb
         {
             services.AddDbContext<AuthDatabaseContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-            b => b.MigrationsAssembly("AuthDatabase")));
+            b => b.MigrationsAssembly("BibliotekaAuthDb")));
 
             services.AddIdentity<AppUser, IdentityRole>()
               .AddEntityFrameworkStores<AuthDatabaseContext>()

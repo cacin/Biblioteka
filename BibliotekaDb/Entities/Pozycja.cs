@@ -24,7 +24,8 @@ namespace BibliotekaDb.Entities
         public RodzajEnum Rodzaj { get; set; }
         public string Foto { get; set; }
         public bool Status { get; set; }
-        //public string Uzytkownik { get; set; }
+        [Column(TypeName = "nvarchar(450)")]
+        public string Uzytkownik { get; set; }
     }
 
 }

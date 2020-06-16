@@ -17,16 +17,14 @@ namespace BibliotekaDb
         public virtual DbSet<Historia> Historia { get; set; }
         public virtual DbSet<Rodzaj> Rodzaje { get; set; }
 
-        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-           // optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=BibliotekaDb;Integrated Security = True");
-            base.OnConfiguring(optionsBuilder);
-        }*/
-
+      
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
             builder.SeedEnumValues<Rodzaj, RodzajEnum>(e => e);
+            builder.Entity<Pozycja>()
+                .HasIndex(b => b.Uzytkownik)
+                .HasName("Index_uzytkownik");
             base.OnModelCreating(builder);
         }
 

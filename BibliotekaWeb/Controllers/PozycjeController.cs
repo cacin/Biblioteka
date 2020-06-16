@@ -11,15 +11,18 @@ using BibliotekaWeb.Services;
 using BibliotekaWeb.Models;
 using Microsoft.AspNetCore.Identity;
 using BibliotekaAuthDb.Entities;
+using BibliotekaDb;
 
 namespace BibliotekaWeb.Controllers
 {
     public class PozycjeController : Controller
     {
-        //private readonly BazaContextTemporary _context;
+        private readonly BazaContext _context;
         private readonly IPozycjeService _pozycjeService;
         private readonly UserManager<AppUser> _userManager;
+       
 
+      
         public PozycjeController( 
             IPozycjeService pozycjeService,
             UserManager<AppUser> userManager)
@@ -88,9 +91,11 @@ namespace BibliotekaWeb.Controllers
         }
 
         // GET: Pozycje/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
+            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaDetailsAsync(id);
+
+            if (pozycjaViewModel == null)
             {
                 return NotFound();
             }
@@ -101,7 +106,7 @@ namespace BibliotekaWeb.Controllers
                 return NotFound();
             }
             return View(pozycja);*/
-            return View(null);
+            return View(pozycjaViewModel);
         }
 
         // POST: Pozycje/Edit/5
@@ -111,7 +116,8 @@ namespace BibliotekaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status")] Pozycja pozycja)
         {
-            if (id != pozycja.PozycjaId)
+            PozycjaViewModel pozycjaViewModel = await _pozycjeService.PutPozycjaDetailsAsync(id);
+            if (pozycjaViewModel == null)
             {
                 return NotFound();
             }
@@ -120,8 +126,8 @@ namespace BibliotekaWeb.Controllers
             {
                 try
                 {
-                    //_context.Update(pozycja);
-                    //await _context.SaveChangesAsync();
+                    _context.Update(pozycja);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -136,7 +142,7 @@ namespace BibliotekaWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(pozycja);
+            return View(pozycjaViewModel);
         }
 
         // GET: Pozycje/Delete/5

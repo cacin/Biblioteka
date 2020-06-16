@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BibliotekaAuthDb\BibliotekaAuthDb.csproj" />
+    <ProjectReference Include="..\BibliotekaDb\BibliotekaDb.csproj" />
   </ItemGroup>
 
 </Project>

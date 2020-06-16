@@ -1,4 +1,5 @@
-﻿using BibliotekaWeb.Models;
+﻿using BibliotekaWeb.HttpClients;
+using BibliotekaWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace BibliotekaWeb.Services
     {
         Task<PozycjaViewModel[]> GetPozycjaDetailsAsync(string uzytkownik);
         Task<PozycjaViewModel> GetPozycjaDetailsAsync(int id);
+        Task<PozycjaViewModel> PutPozycjaDetailsAsync(int id);
+       
 
         //Task<Guid> AddItemAsync(TodoItemViewModel newItem, AppUser user);
 

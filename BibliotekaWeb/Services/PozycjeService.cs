@@ -41,6 +41,15 @@ namespace BibliotekaWeb.Services
             return _mapper.Map<PozycjaViewModel>(dtoItems);
         }
 
+        public async Task<PozycjaViewModel> PutPozycjaDetailsAsync(int Id)
+        {
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
+            //Pozycja dtoItems = await serviceClient.ApiPozycjePutAsync(Id);
+
+            //return _mapper.Map<PozycjaViewModel>(dtoItems);
+            return null; //chwilowo aby nie było błedu
+        }
+
         /*
         public async Task<Guid> AddItemAsync(PozycjaViewModel newItem, AppUser user)
         {

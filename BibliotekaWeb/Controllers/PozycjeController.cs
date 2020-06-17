@@ -81,10 +81,17 @@ namespace BibliotekaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status")] Pozycja pozycja)
         {
+            var uzytkownik = await _userManager.GetUserAsync(User);
+            if (uzytkownik == null)
+            {
+                return Challenge();
+            }
+
             if (ModelState.IsValid)
             {
-                //_context.Add(pozycja);
-                //await _context.SaveChangesAsync();
+                pozycja.Uzytkownik = uzytkownik.Id;
+                PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);
+              
                 return RedirectToAction(nameof(Index));
             }
             return View(pozycja);

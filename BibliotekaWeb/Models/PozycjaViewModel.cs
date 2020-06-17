@@ -20,6 +20,7 @@ namespace BibliotekaWeb.Models
         [Required]
         public RodzajEnum Rodzaj { get; set; }
         public string Foto { get; set; }
+        [Display(Name = "Czy wypożyczona?", Description = "Czy wypożyczona?")]
         public bool Status { get; set; }
         public string Uzytkownik { get; set; }
     }

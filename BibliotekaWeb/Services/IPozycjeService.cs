@@ -9,14 +9,10 @@ namespace BibliotekaWeb.Services
 {
     public interface IPozycjeService
     {
-        Task<PozycjaViewModel[]> GetPozycjaDetailsAsync(string uzytkownik);
-        Task<PozycjaViewModel> GetPozycjaDetailsAsync(int id);
-        Task<PozycjaViewModel> PutPozycjaDetailsAsync(int id);
+        Task<PozycjaViewModel[]> GetPozycjaAsync(string uzytkownik);
+        Task<PozycjaViewModel> GetPozycjaAsync(int id);
+        Task PutPozycjaAsync(int id, PozycjaViewModel body);
         Task<PozycjaViewModel> DeletePozycjaAsync(int id);
         Task<PozycjaViewModel> PostPozycjaAsync(Pozycja body);
-
-        //Task<Guid> AddItemAsync(TodoItemViewModel newItem, AppUser user);
-
-        //Task<bool> MarkDoneAsync(TodoItemViewModel item, AppUser user);
     }
 }

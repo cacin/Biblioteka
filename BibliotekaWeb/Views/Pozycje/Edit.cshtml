@@ -14,6 +14,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PozycjaId" />
+            <input type="hidden" asp-for="Uzytkownik" />
             <div class="form-group">
                 <label asp-for="Tytul" class="control-label">Tytuł</label>
                 <input asp-for="Tytul" class="form-control" />
@@ -31,9 +32,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Rodzaj" class="control-label"></label>
-                <!--<input asp-for="Rodzaj" class="form-control" />-->
-                <select asp-for="Rodzaj" class="form-control"></select>
+                <input asp-for="Rodzaj" class="form-control" />
                 <span asp-validation-for="Rodzaj" class="text-danger"></span>
+                @*<select asp-for="Rodzaj" class="form-control"></select>*@
             </div>
             <div class="form-group">
                 <label asp-for="Foto" class="control-label"></label>

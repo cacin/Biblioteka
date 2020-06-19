@@ -17,7 +17,7 @@ namespace BibliotekaWeb.Controllers
 {
     public class PozycjeController : Controller
     {
-        private readonly BazaContext _context;
+        //private readonly BazaContext _context;
         private readonly IPozycjeService _pozycjeService;
         private readonly UserManager<AppUser> _userManager;
        
@@ -43,7 +43,7 @@ namespace BibliotekaWeb.Controllers
             }
 
 
-            PozycjaViewModel[] pozycjaViewModel = await _pozycjeService.GetPozycjaDetailsAsync(uzytkownik.Id);
+            PozycjaViewModel[] pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(uzytkownik.Id);
             /*if (pozycjaViewModel == null || pozycjaViewModel.Count() == 0)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace BibliotekaWeb.Controllers
         // GET: Pozycje/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaDetailsAsync(id);
+            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(id);
 
             /*var pozycja = await _context.Pozycje
                 .FirstOrDefaultAsync(m => m.PozycjaId == id);
@@ -100,19 +100,13 @@ namespace BibliotekaWeb.Controllers
         // GET: Pozycje/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaDetailsAsync(id);
+            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(id);
 
             if (pozycjaViewModel == null)
             {
                 return NotFound();
             }
 
-            /*var pozycja = await _context.Pozycje.FindAsync(id);
-            if (pozycja == null)
-            {
-                return NotFound();
-            }
-            return View(pozycja);*/
             return View(pozycjaViewModel);
         }
 
@@ -121,45 +115,18 @@ namespace BibliotekaWeb.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status")] Pozycja pozycja)
+        public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status,Uzytkownik")] PozycjaViewModel pozycja)
         {
-            PozycjaViewModel pozycjaViewModel = await _pozycjeService.PutPozycjaDetailsAsync(id);
-            if (pozycjaViewModel == null)
-            {
-                return NotFound();
-            }
+            await _pozycjeService.PutPozycjaAsync(id, pozycja);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(pozycja);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PozycjaExists(pozycja.PozycjaId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(pozycjaViewModel);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Pozycje/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaDetailsAsync(id);
+            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(id);
 
-            /*var pozycja = await _context.Pozycje
-                .FirstOrDefaultAsync(m => m.PozycjaId == id);
-            */
             if (pozycjaViewModel == null)
             {
                 return NotFound();
@@ -187,10 +154,5 @@ namespace BibliotekaWeb.Controllers
             
         }
 
-        private bool PozycjaExists(int id)
-        {
-            //return _context.Pozycje.Any(e => e.PozycjaId == id);
-            return true;
-        }
     }
 }

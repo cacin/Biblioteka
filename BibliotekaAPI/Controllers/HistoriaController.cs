@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BibliotekaDb;
-using BibliotekaDb.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BibliotekaDb;
+using BibliotekaDb.Entities;
+using System;
 
 namespace BibliotekaAPI.Controllers
 {
-    public class HistoriaController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class HistoriaController : ControllerBase
     {
-
         private readonly BazaContext _context;
 
         public HistoriaController(BazaContext context)

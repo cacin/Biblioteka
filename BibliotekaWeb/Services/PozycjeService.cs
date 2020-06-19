@@ -60,6 +60,16 @@ namespace BibliotekaWeb.Services
 
         }
 
+        public async Task<PozycjaViewModel> DeletePozycjaAsync(int id)
+        {
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
+            Pozycja dtoItems = await serviceClient.ApiPozycjeDeleteAsync(id);
+
+            return _mapper.Map<PozycjaViewModel>(dtoItems);
+
+
+        }
+
         /*
         public async Task<Guid> AddItemAsync(PozycjaViewModel newItem, AppUser user)
         {

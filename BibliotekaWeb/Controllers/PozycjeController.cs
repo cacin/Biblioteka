@@ -153,22 +153,19 @@ namespace BibliotekaWeb.Controllers
         }
 
         // GET: Pozycje/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaDetailsAsync(id);
 
-            /*var pozycja = await _context.Pozycje.FirstOrDefaultAsync(m => m.PozycjaId == id);
-            if (pozycja == null)
-            {
-                return NotFound();
-            }
-            return View(pozycja);
+            /*var pozycja = await _context.Pozycje
+                .FirstOrDefaultAsync(m => m.PozycjaId == id);
             */
-            return View(null);
+            if (pozycjaViewModel == null)
+            {
+                return NotFound();
+            }
 
+            return View(pozycjaViewModel);
         }
 
         // POST: Pozycje/Delete/5
@@ -176,10 +173,18 @@ namespace BibliotekaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            /*var pozycja = await _context.Pozycje.FindAsync(id);
+            PozycjaViewModel pozycjaViewModel = await _pozycjeService.DeletePozycjaAsync(id);
+
+            //_context.Remove(pozycjaViewModel);
+            //await _context.SaveChangesAsync();
+            /*     var pozycja = await _context.Pozycje.FindAsync(id);
+
             _context.Pozycje.Remove(pozycja);
-            await _context.SaveChangesAsync();*/
+            await _context.SaveChangesAsync();
+
+            return Ok(pozycja);*/
             return RedirectToAction(nameof(Index));
+            
         }
 
         private bool PozycjaExists(int id)

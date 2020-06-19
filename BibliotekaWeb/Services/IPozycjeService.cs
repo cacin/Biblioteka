@@ -12,7 +12,7 @@ namespace BibliotekaWeb.Services
         Task<PozycjaViewModel[]> GetPozycjaDetailsAsync(string uzytkownik);
         Task<PozycjaViewModel> GetPozycjaDetailsAsync(int id);
         Task<PozycjaViewModel> PutPozycjaDetailsAsync(int id);
-
+        Task<PozycjaViewModel> DeletePozycjaAsync(int id);
         Task<PozycjaViewModel> PostPozycjaAsync(Pozycja body);
 
         //Task<Guid> AddItemAsync(TodoItemViewModel newItem, AppUser user);

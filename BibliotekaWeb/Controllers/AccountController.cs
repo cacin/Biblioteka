@@ -60,7 +60,7 @@ namespace BibliotekaWeb.MVC.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Logowanie zakończone błędem. Sprawdź login lub hasło!");
                     return View(model);
                 }
             }

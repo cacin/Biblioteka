@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Edycja</h1>
 
 <h4>Pozycja</h4>
 <hr />
@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PozycjaId" />
             <div class="form-group">
-                <label asp-for="Tytul" class="control-label"></label>
+                <label asp-for="Tytul" class="control-label">Tytuł</label>
                 <input asp-for="Tytul" class="form-control" />
                 <span asp-validation-for="Tytul" class="text-danger"></span>
             </div>
@@ -53,7 +53,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Powrót do Listy</a>
+    <a asp-action="Index">Powrót do Pozycji</a>
 </div>
 
 @section Scripts {

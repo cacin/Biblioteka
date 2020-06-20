@@ -18,6 +18,7 @@ using BibliotekaWeb.Services;
 using BibliotekaAuthDb;
 using Microsoft.Extensions.Hosting;
 
+
 namespace BibliotekaWeb
 {
     public class Startup
@@ -28,6 +29,7 @@ namespace BibliotekaWeb
         }
 
         public IConfiguration Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -48,12 +50,13 @@ namespace BibliotekaWeb
             });
             //  services.AddCors();
             services.AddTransient<IPozycjeService, PozycjeService>();
+            services.AddTransient<IAzureService, AzureService>();
             services.AddAutoMapper(typeof(Startup));
 
             services.AddAuthentication();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
-            services.Configure<BibliotekaApiConfiguration>(Configuration.GetSection("BibliotekaApiConfiguration"));
+            services.Configure<BibliotekaConfiguration>(Configuration.GetSection("BibliotekaConfiguration"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

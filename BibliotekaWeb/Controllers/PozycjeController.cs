@@ -19,16 +19,19 @@ namespace BibliotekaWeb.Controllers
     {
         //private readonly BazaContext _context;
         private readonly IPozycjeService _pozycjeService;
+        private readonly IAzureService _azureService;
         private readonly UserManager<AppUser> _userManager;
        
 
       
         public PozycjeController( 
             IPozycjeService pozycjeService,
+            IAzureService azureService,
             UserManager<AppUser> userManager)
         {
             //_context = context;
             _pozycjeService = pozycjeService;
+            _azureService = azureService;
             _userManager = userManager;
         }
 
@@ -90,6 +93,7 @@ namespace BibliotekaWeb.Controllers
             if (ModelState.IsValid)
             {
                 pozycja.Uzytkownik = uzytkownik.Id;
+                var blobUrl = await _azureService.AddBlobItem(pozycja.Foto);
                 PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);
               
                 return RedirectToAction(nameof(Index));
@@ -117,8 +121,8 @@ namespace BibliotekaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status,Uzytkownik")] PozycjaViewModel pozycja)
         {
-            await _pozycjeService.PutPozycjaAsync(id, pozycja);
-
+            var blobUrl = await _azureService.AddBlobItem(pozycja.Foto);
+            await _pozycjeService.PutPozycjaAsync(id, pozycja);          
             return RedirectToAction(nameof(Index));
         }
 

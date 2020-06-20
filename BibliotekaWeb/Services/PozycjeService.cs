@@ -17,9 +17,9 @@ namespace BibliotekaWeb.Services
         readonly HttpClient httpClient = new HttpClient();
 
         private readonly IMapper _mapper;
-        private readonly IOptions<BibliotekaApiConfiguration> _config;
+        private readonly IOptions<BibliotekaConfiguration> _config;
 
-        public PozycjeService(IMapper mapper, IOptions<BibliotekaApiConfiguration> config)
+        public PozycjeService(IMapper mapper, IOptions<BibliotekaConfiguration> config)
         {
             _mapper = mapper;
             _config = config;
@@ -27,7 +27,7 @@ namespace BibliotekaWeb.Services
 
         public async Task<PozycjaViewModel[]> GetPozycjaAsync(string uzytkownik)
         {
-            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
             ICollection<Pozycja> dtoItems = await serviceClient.ApiPozycjeGetAsync(uzytkownik);
 
             return _mapper.Map<ICollection<PozycjaViewModel>>(dtoItems).ToArray();
@@ -35,7 +35,7 @@ namespace BibliotekaWeb.Services
 
         public async Task<PozycjaViewModel> GetPozycjaAsync(int Id)
         {
-            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
             Pozycja dtoItems = await serviceClient.ApiPozycjeGetAsync(Id);
 
             return _mapper.Map<PozycjaViewModel>(dtoItems);
@@ -44,13 +44,13 @@ namespace BibliotekaWeb.Services
         public async Task PutPozycjaAsync(int Id, PozycjaViewModel pozycjaViewModel)
         {
             var pozycja = _mapper.Map<Pozycja>(pozycjaViewModel);
-            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
             await serviceClient.ApiPozycjePutAsync(Id, pozycja);
         }
 
         public async Task<PozycjaViewModel> PostPozycjaAsync(Pozycja body)
         {
-            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
             Pozycja dtoItems = await serviceClient.ApiPozycjePostAsync(body);
 
             return _mapper.Map<PozycjaViewModel>(dtoItems);
@@ -60,49 +60,12 @@ namespace BibliotekaWeb.Services
 
         public async Task<PozycjaViewModel> DeletePozycjaAsync(int id)
         {
-            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
             Pozycja dtoItems = await serviceClient.ApiPozycjeDeleteAsync(id);
 
             return _mapper.Map<PozycjaViewModel>(dtoItems);
 
 
         }
-
-        /*
-        public async Task<Guid> AddItemAsync(PozycjaViewModel newItem, AppUser user)
-        {
-            BibliotekaApiHttpClient todoServiceClient = new BibliotekaApiHttpClient(url, httpClient);
-
-            newItem.OwnerId = user.Id;
-            newItem.IsDone = false;
-            newItem.DueAt = DateTimeOffset.Now.AddDays(3);
-            Guid returnValue = await todoServiceClient.PostAsync(_mapper.Map<ToDoItemDTO>(newItem));
-
-            return returnValue;
-        }
-
-
-        public async Task<PozycjaViewModel[]> GetIncompleteItemsAsync(AppUser user)
-        {
-            BibliotekaApiHttpClient todoServiceClient = new BibliotekaApiHttpClient(url, httpClient);
-            ICollection<ToDoItemDTO> dtoItems = await todoServiceClient.GetAsync(user.Id);
-
-            ICollection<PozycjaViewModel> returnValue = _mapper.Map<ICollection<PozycjaViewModel>>(dtoItems);
-
-            return returnValue.ToArray();
-        }
-
-        public async Task<bool> MarkDoneAsync(PozycjaViewModel item, AppUser user)
-        {
-            BibliotekaApiHttpClient todoServiceClient = new BibliotekaApiHttpClient(url, httpClient);
-
-            item.OwnerId = user.Id;
-            item.IsDone = true;
-
-            await todoServiceClient.PutAsync(item.Id, _mapper.Map<ToDoItemDTO>(item));
-            return true;
-
-        }
-        */
     }
 }

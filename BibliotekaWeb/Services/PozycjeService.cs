@@ -14,7 +14,7 @@ namespace BibliotekaWeb.Services
 {
     public class PozycjeService : IPozycjeService
     {
-        HttpClient httpClient = new HttpClient();
+        readonly HttpClient httpClient = new HttpClient();
 
         private readonly IMapper _mapper;
         private readonly IOptions<BibliotekaApiConfiguration> _config;
@@ -25,7 +25,7 @@ namespace BibliotekaWeb.Services
             _config = config;
         }
 
-        public async Task<PozycjaViewModel[]> GetPozycjaDetailsAsync(string uzytkownik)
+        public async Task<PozycjaViewModel[]> GetPozycjaAsync(string uzytkownik)
         {
             BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
             ICollection<Pozycja> dtoItems = await serviceClient.ApiPozycjeGetAsync(uzytkownik);
@@ -33,7 +33,7 @@ namespace BibliotekaWeb.Services
             return _mapper.Map<ICollection<PozycjaViewModel>>(dtoItems).ToArray();
         }
 
-        public async Task<PozycjaViewModel> GetPozycjaDetailsAsync(int Id)
+        public async Task<PozycjaViewModel> GetPozycjaAsync(int Id)
         {
             BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
             Pozycja dtoItems = await serviceClient.ApiPozycjeGetAsync(Id);
@@ -41,13 +41,11 @@ namespace BibliotekaWeb.Services
             return _mapper.Map<PozycjaViewModel>(dtoItems);
         }
 
-        public async Task<PozycjaViewModel> PutPozycjaDetailsAsync(int Id)
+        public async Task PutPozycjaAsync(int Id, PozycjaViewModel pozycjaViewModel)
         {
+            var pozycja = _mapper.Map<Pozycja>(pozycjaViewModel);
             BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.Url, httpClient);
-            //Pozycja dtoItems = await serviceClient.ApiPozycjePutAsync(Id);
-
-            //return _mapper.Map<PozycjaViewModel>(dtoItems);
-            return null; //chwilowo aby nie było błedu
+            await serviceClient.ApiPozycjePutAsync(Id, pozycja);
         }
 
         public async Task<PozycjaViewModel> PostPozycjaAsync(Pozycja body)

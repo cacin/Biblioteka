@@ -14,6 +14,7 @@
         <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PozycjaId" />
+            <input type="hidden" asp-for="Uzytkownik" />
             <div class="form-group">
                 <label asp-for="Tytul" class="control-label">Tytuł</label>
                 <input asp-for="Tytul" class="form-control" />
@@ -38,9 +39,6 @@
                     <option value="2">CD</option>
                     <option value="3">Vinyl</option>
                 </select>
-
-
-                <span asp-validation-for="Rodzaj" class="text-danger"></span>
             </div>
                 <div class="form-group">
                     <label asp-for="Foto" class="control-label"></label>

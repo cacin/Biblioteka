@@ -94,6 +94,7 @@ namespace BibliotekaWeb.Controllers
             {
                 pozycja.Uzytkownik = uzytkownik.Id;
                 var blobUrl = await _azureService.AddBlobItem(pozycja.Foto);
+                pozycja.Foto = blobUrl;
                 PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);
               
                 return RedirectToAction(nameof(Index));

@@ -50,6 +50,7 @@ namespace BibliotekaWeb
             });
             //  services.AddCors();
             services.AddTransient<IPozycjeService, PozycjeService>();
+            services.AddTransient<IHistoriaService, HistoriaService>();
             services.AddTransient<IAzureService, AzureService>();
             services.AddAutoMapper(typeof(Startup));
 

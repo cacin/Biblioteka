@@ -52,6 +52,7 @@ namespace BibliotekaWeb
             services.AddTransient<IPozycjeService, PozycjeService>();
             services.AddTransient<IHistoriaService, HistoriaService>();
             services.AddTransient<IAzureService, AzureService>();
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddAuthentication();

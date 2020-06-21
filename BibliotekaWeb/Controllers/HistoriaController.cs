@@ -17,21 +17,18 @@ namespace BibliotekaWeb.Controllers
 {
     public class HistoriaController : Controller
     {
-        //private readonly BazaContext _context;
+      
         private readonly IHistoriaService _historiaService;
-     //   private readonly IAzureService _azureService;
-      //  private readonly UserManager<AppUser> _userManager;
+   
 
 
         public HistoriaController(
             IHistoriaService historiaService)
-     //       IAzureService azureService,
-        //    UserManager<AppUser> userManager)
+    
         {
-            //_context = context;
+           
             _historiaService = historiaService;
-        //   _azureService = azureService;
-          //  _userManager = userManager;
+    
         }
 
         // GET: Pozycje
@@ -84,7 +81,7 @@ namespace BibliotekaWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status")] Pozycja pozycja)
+        public async Task<IActionResult> Rent([Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status")] Historia historia)
         {
             var uzytkownik = await _userManager.GetUserAsync(User);
             if (uzytkownik == null)

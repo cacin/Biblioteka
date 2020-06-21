@@ -304,26 +304,16 @@ namespace BibliotekaWeb.HttpClients
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pozycja>> ApiPozycjeGetAsync(string uzytkownik, string searchString, System.Threading.CancellationToken cancellationToken)
         {
-            //if (searchString == null)
-            //    throw new System.ArgumentException("searchString");
-
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Pozycje");
-            
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Pozycje?");
             if (uzytkownik != null)
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("uzytkownik") + "=").
-
-                    Append(System.Uri.EscapeDataString(ConvertToString(uzytkownik, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-                    
-               
+                urlBuilder_.Append(System.Uri.EscapeDataString("uzytkownik") + "=").Append(System.Uri.EscapeDataString(ConvertToString(uzytkownik, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
-            if (searchString !=null)
+            if (searchString != null)
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("SearchStrig") + "=")
-                   .Append(System.Uri.EscapeDataString(ConvertToString(uzytkownik, System.Globalization.CultureInfo.InvariantCulture))).Append("{searchString}");
+                urlBuilder_.Append(System.Uri.EscapeDataString("SearchString") + "=").Append(System.Uri.EscapeDataString(ConvertToString(searchString, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
-
             urlBuilder_.Length--;
 
             var client_ = _httpClient;

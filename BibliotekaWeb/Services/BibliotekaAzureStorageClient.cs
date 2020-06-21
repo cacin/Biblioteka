@@ -34,11 +34,18 @@ namespace BibliotekaWeb.Services
                 {
                     CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                     CloudBlobContainer container = blobClient.GetContainerReference(_storageContainerName);
-                    await container.CreateIfNotExistsAsync();                    
+                    await container.CreateIfNotExistsAsync();
+                    await container.SetPermissionsAsync(new BlobContainerPermissions()
+                    {
+                        PublicAccess = BlobContainerPublicAccessType.Blob
+                    });
+
 
                     var blob = container.GetBlockBlobReference(blobName);
                     await blob.UploadFromFileAsync((blobPath));
+                    //await blob.UploadFromStreamAsync(source); -> najpierw base64 zamienic na strumien
                     return blob.Uri.ToString();
+
                 }
             }
             return "";

@@ -52,16 +52,16 @@ namespace BibliotekaWeb.HttpClients
         /// <summary>Pobranie informacji o historii pozycji w bibliotece</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Historia>> HistoriaGetAsync(int id)
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Historia>> ApiHistoriaGetAsync(int id)
         {
-            return HistoriaGetAsync(id, System.Threading.CancellationToken.None);
+            return ApiHistoriaGetAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Pobranie informacji o historii pozycji w bibliotece</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Historia>> HistoriaGetAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Historia>> ApiHistoriaGetAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -131,16 +131,16 @@ namespace BibliotekaWeb.HttpClients
         /// <summary>Wypozyczenie pozycji z biblioteki</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task HistoriaPostAsync(int id, System.DateTimeOffset dataOd, string osoba)
+        public System.Threading.Tasks.Task ApiHistoriaPostAsync(int id, System.DateTimeOffset dataOd, string osoba)
         {
-            return HistoriaPostAsync(id, dataOd, osoba, System.Threading.CancellationToken.None);
+            return ApiHistoriaPostAsync(id, dataOd, osoba, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Wypozyczenie pozycji z biblioteki</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task HistoriaPostAsync(int id, System.DateTimeOffset dataOd, string osoba, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task ApiHistoriaPostAsync(int id, System.DateTimeOffset dataOd, string osoba, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -212,16 +212,16 @@ namespace BibliotekaWeb.HttpClients
         /// <summary>Zwrocenie pozycji do biblioteki</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task HistoriaPutAsync(int id, System.DateTimeOffset dataDo)
+        public System.Threading.Tasks.Task ApiHistoriaPutAsync(int id, System.DateTimeOffset dataDo)
         {
-            return HistoriaPutAsync(id, dataDo, System.Threading.CancellationToken.None);
+            return ApiHistoriaPutAsync(id, dataDo, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Zwrocenie pozycji do biblioteki</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task HistoriaPutAsync(int id, System.DateTimeOffset dataDo, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task ApiHistoriaPutAsync(int id, System.DateTimeOffset dataDo, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");

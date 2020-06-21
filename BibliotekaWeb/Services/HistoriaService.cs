@@ -24,7 +24,7 @@ namespace BibliotekaWeb.Services
         }
 
         //GET
-        public async Task GetHistoriaViewModels(int id)
+        public async Task GetHistoriaAsync(int id)
         {
             BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
             await serviceClient.ApiHistoriaGetAsync(id);

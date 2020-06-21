@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BibliotekaWeb.Services
 {
-    public class IHistoriaService
+    public interface IHistoriaService
     {
         Task GetHistoriaAsync(int id);
         Task PostHistoriaAsync(int id, System.DateTimeOffset dataOd, string osoba);

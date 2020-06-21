@@ -13,6 +13,7 @@ namespace BibliotekaWeb
         public AutoMapperProfile()
         {
             CreateMap<PozycjaViewModel, Pozycja>().ReverseMap();
+            CreateMap<HistoriaViewModel, Historia>().ReverseMap();
         }
     }
 }

@@ -81,81 +81,30 @@ namespace BibliotekaWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Rent([Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status")] Historia historia)
+        public async Task<IActionResult> Rent([Bind("Id, DataOd, Osoba, Pozycja")] Historia historia)
         {
-            var uzytkownik = await _userManager.GetUserAsync(User);
-            if (uzytkownik == null)
-            {
-                return Challenge();
-            }
+        
 
             if (ModelState.IsValid)
             {
-                pozycja.Uzytkownik = uzytkownik.Id;
-                var blobUrl = await _azureService.AddBlobItem(pozycja.Foto);
-                pozycja.Foto = blobUrl;
-                PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);
+              await _historiaService.PostHistoriaAsync(historia.Pozycja.PozycjaId,  historia.DataOd, historia.Osoba);
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(pozycja);
+            return View(historia);
         }
 
-        // GET: Pozycje/Edit/5
-        public async Task<IActionResult> Edit(int id)
-        {
-            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(id);
-
-            if (pozycjaViewModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(pozycjaViewModel);
-        }
-
+  
         // POST: Pozycje/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPut]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status,Uzytkownik")] PozycjaViewModel pozycja)
-        {
-            var blobUrl = await _azureService.AddBlobItem(pozycja.Foto);
-            await _pozycjeService.PutPozycjaAsync(id, pozycja);
+        public async Task<IActionResult> Return(int id, [Bind("Id, DataDo, Pozycja")] Historia historia)
+
+        { 
+            await _historiaService.PutHistoriaAsync(historia.Pozycja.PozycjaId, historia.DataDo);
             return RedirectToAction(nameof(Index));
-        }
-
-        // GET: Pozycje/Delete/5
-        public async Task<IActionResult> Delete(int id)
-        {
-            PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(id);
-
-            if (pozycjaViewModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(pozycjaViewModel);
-        }
-
-        // POST: Pozycje/Delete/5
-        [HttpDelete, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            PozycjaViewModel pozycjaViewModel = await _pozycjeService.DeletePozycjaAsync(id);
-
-            //_context.Remove(pozycjaViewModel);
-            //await _context.SaveChangesAsync();
-            /*     var pozycja = await _context.Pozycje.FindAsync(id);
-
-            _context.Pozycje.Remove(pozycja);
-            await _context.SaveChangesAsync();
-
-            return Ok(pozycja);*/
-            return RedirectToAction(nameof(Index));
-
         }
 
     }

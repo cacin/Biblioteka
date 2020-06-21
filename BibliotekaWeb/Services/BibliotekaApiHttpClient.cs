@@ -131,16 +131,16 @@ namespace BibliotekaWeb.HttpClients
         /// <summary>Wypozyczenie pozycji z biblioteki</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task HistoriaPost(int id, System.DateTimeOffset dataOd, string osoba)
+        public System.Threading.Tasks.Task HistoriaPostAsync(int id, System.DateTimeOffset dataOd, string osoba)
         {
-            return HistoriaAsync(id, dataOd, osoba, System.Threading.CancellationToken.None);
+            return HistoriaPostAsync(id, dataOd, osoba, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Wypozyczenie pozycji z biblioteki</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task HistoriaAsync(int id, System.DateTimeOffset dataOd, string osoba, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task HistoriaPostAsync(int id, System.DateTimeOffset dataOd, string osoba, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -212,16 +212,16 @@ namespace BibliotekaWeb.HttpClients
         /// <summary>Zwrocenie pozycji do biblioteki</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task HistoriaPut(int id, System.DateTimeOffset dataDo)
+        public System.Threading.Tasks.Task HistoriaPutAsync(int id, System.DateTimeOffset dataDo)
         {
-            return Historia2Async(id, dataDo, System.Threading.CancellationToken.None);
+            return HistoriaPutAsync(id, dataDo, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Zwrocenie pozycji do biblioteki</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task Historia2Async(int id, System.DateTimeOffset dataDo, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task HistoriaPutAsync(int id, System.DateTimeOffset dataDo, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");

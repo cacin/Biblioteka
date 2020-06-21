@@ -308,7 +308,7 @@ namespace BibliotekaWeb.HttpClients
             //    throw new System.ArgumentException("searchString");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Pozycje?SearchString=an");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Pozycje");
             
             if (uzytkownik != null)
             {

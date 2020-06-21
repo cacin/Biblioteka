@@ -9,7 +9,7 @@ namespace BibliotekaWeb.Services
 {
     public interface IPozycjeService
     {
-        Task<PozycjaViewModel[]> GetPozycjaAsync(string uzytkownik);
+        Task<PozycjaViewModel[]> GetPozycjaAsync(string uzytkownik, string searchString);
         Task<PozycjaViewModel> GetPozycjaAsync(int id);
         Task PutPozycjaAsync(int id, PozycjaViewModel body);
         Task<PozycjaViewModel> DeletePozycjaAsync(int id);

@@ -36,17 +36,19 @@ namespace BibliotekaWeb.Controllers
         }
 
         // GET: Pozycje
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
             //return View(await _context.Pozycje.ToListAsync());
             var uzytkownik = await _userManager.GetUserAsync(User);
+            
+            
             if (uzytkownik == null)
             {
                 return Challenge();
             }
 
 
-            PozycjaViewModel[] pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(uzytkownik.Id);
+            PozycjaViewModel[] pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(uzytkownik.Id, searchString);
             /*if (pozycjaViewModel == null || pozycjaViewModel.Count() == 0)
             {
                 return NotFound();

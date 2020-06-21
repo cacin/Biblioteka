@@ -9,6 +9,13 @@
 <h1>@ViewData["Title"]</h1>
 <br />
 
+<form asp-controller="Pozycje" asp-action="Index" method="get">
+    <p>
+        Tytuł: <input type="text" name="SearchString">
+        <input type="submit" value="Filtruj" />
+    </p>
+</form>
+
 <p>
     <a asp-action="Create" class="btn btn-primary">Dodaj nową pozycję</a>
 </p>

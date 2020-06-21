@@ -7,7 +7,7 @@ namespace BibliotekaWeb.Services
 {
     public class IHistoriaService
     {
-        Task<HistoriaViewModel> GetHistoriaAsync(int id);
+        //Task<HistoriaViewModel> GetHistoriaAsync(int id);
         //Task<HistoriaViewModel> PostHistoriaAsync(?);
         //Task<HistoriaViewModel> PutHistoriaAsync(?);
     }

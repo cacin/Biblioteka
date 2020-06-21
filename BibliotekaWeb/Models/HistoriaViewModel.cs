@@ -19,5 +19,7 @@ namespace BibliotekaWeb.Models
         [Display(Name = "Osoba wypożyczająca", Description = "Osoba wypożyczająca")]
         public string Osoba { get; set; }
         public Pozycja Pozycja { get; set; }
+
+
     }
 }

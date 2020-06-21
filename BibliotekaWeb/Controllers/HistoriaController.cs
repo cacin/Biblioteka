@@ -100,7 +100,7 @@ namespace BibliotekaWeb.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPut]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Return(int id, [Bind("Id, DataDo, Pozycja")] Historia historia)
+        public async Task<IActionResult> Return(int id, [Bind("Id, DataDo, Pozycja")] ReturnViewModel historia)
 
         { 
             await _historiaService.PutHistoriaAsync(historia.Pozycja.PozycjaId, historia.DataDo);

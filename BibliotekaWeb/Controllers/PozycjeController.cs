@@ -71,7 +71,7 @@ namespace BibliotekaWeb.Controllers
             return View(pozycjaViewModel);
         }
 
-        // GET: Pozycje/Create
+        // GET: Pozycje/Create;
         public IActionResult Create()
         {
             return View();

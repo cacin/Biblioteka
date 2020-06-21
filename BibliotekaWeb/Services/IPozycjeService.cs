@@ -14,5 +14,6 @@ namespace BibliotekaWeb.Services
         Task PutPozycjaAsync(int id, PozycjaViewModel body);
         Task<PozycjaViewModel> DeletePozycjaAsync(int id);
         Task<PozycjaViewModel> PostPozycjaAsync(Pozycja body);
+       
     }
 }

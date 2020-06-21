@@ -71,7 +71,7 @@ namespace BibliotekaWeb.Controllers
             return View(pozycjaViewModel);
         }
 
-        // GET: Pozycje/Create
+        // GET: Pozycje/Create;
         public IActionResult Create()
         {
             return View();
@@ -94,6 +94,7 @@ namespace BibliotekaWeb.Controllers
             {
                 pozycja.Uzytkownik = uzytkownik.Id;
                 var blobUrl = await _azureService.AddBlobItem(pozycja.Foto);
+                pozycja.Foto = blobUrl;
                 PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);
               
                 return RedirectToAction(nameof(Index));

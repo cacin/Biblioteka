@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 //https://dotnetcoretutorials.com/2017/06/17/using-azure-blob-storage-net-core/
@@ -25,12 +27,12 @@ namespace BibliotekaWeb.Services
             _storageContainerName = storageContainerName;
         }
 
-        public async Task<string> AddBlobItem(string blobPath)
+        public async Task<string> AddBlobItem(string base64EncodedString)
         {
-            if (System.IO.File.Exists(blobPath))
-            {
-                string blobName = Path.GetFileName(blobPath);
-                if (CloudStorageAccount.TryParse(_storageConnectionString, out CloudStorageAccount storageAccount))
+            string blobName = new Guid().ToString();
+            var base64Stream = StreamExtensions.ConvertFromBase64(base64EncodedString);
+
+            if (CloudStorageAccount.TryParse(_storageConnectionString, out CloudStorageAccount storageAccount))
                 {
                     CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                     CloudBlobContainer container = blobClient.GetContainerReference(_storageContainerName);
@@ -42,12 +44,11 @@ namespace BibliotekaWeb.Services
 
 
                     var blob = container.GetBlockBlobReference(blobName);
-                    await blob.UploadFromFileAsync((blobPath));
-                    //await blob.UploadFromStreamAsync(source); -> najpierw base64 zamienic na strumien
+                    //await blob.UploadFromFileAsync((blobPath));
+                    await blob.UploadFromStreamAsync(base64Stream); 
                     return blob.Uri.ToString();
-
                 }
-            }
+            //}
             return "";
         }
     }

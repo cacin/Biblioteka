@@ -24,10 +24,10 @@ namespace BibliotekaWeb.Services
         }
 
         //GET
-        public async Task GetHistoriaViewModels(int id)
+        public async Task<ICollection<Historia>> GetHistoriaAsync(int id)
         {
             BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
-            await serviceClient.ApiHistoriaGetAsync(id);
+          return   await serviceClient.ApiHistoriaGetAsync(id);
         }
         //POST
         public async Task PostHistoriaAsync(int id, System.DateTimeOffset dataOd, string osoba)

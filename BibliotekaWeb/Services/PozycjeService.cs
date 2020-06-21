@@ -25,10 +25,10 @@ namespace BibliotekaWeb.Services
             _config = config;
         }
 
-        public async Task<PozycjaViewModel[]> GetPozycjaAsync(string uzytkownik)
+        public async Task<PozycjaViewModel[]> GetPozycjaAsync(string uzytkownik, string searchString)
         {
             BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
-            ICollection<Pozycja> dtoItems = await serviceClient.ApiPozycjeGetAsync(uzytkownik);
+            ICollection<Pozycja> dtoItems = await serviceClient.ApiPozycjeGetAsync(uzytkownik, searchString);
 
             return _mapper.Map<ICollection<PozycjaViewModel>>(dtoItems).ToArray();
         }

@@ -12,6 +12,7 @@
 
 namespace BibliotekaWeb.HttpClients
 {
+    using System.Security.Policy;
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.6.0.0 (NJsonSchema v10.1.18.0 (Newtonsoft.Json v12.0.0.0))")]
@@ -292,23 +293,37 @@ namespace BibliotekaWeb.HttpClients
         /// <summary>Lista pozycji w bibliotece dla wskazanego uzytkownika</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pozycja>> ApiPozycjeGetAsync(string uzytkownik)
+        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pozycja>> ApiPozycjeGetAsync(string uzytkownik, string searchString)
         {
-            return ApiPozycjeGetAsync(uzytkownik, System.Threading.CancellationToken.None);
+            return ApiPozycjeGetAsync(uzytkownik, searchString, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Lista pozycji w bibliotece dla wskazanego uzytkownika</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pozycja>> ApiPozycjeGetAsync(string uzytkownik, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pozycja>> ApiPozycjeGetAsync(string uzytkownik, string searchString, System.Threading.CancellationToken cancellationToken)
         {
+            //if (searchString == null)
+            //    throw new System.ArgumentException("searchString");
+
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Pozycje?");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Pozycje");
+            
             if (uzytkownik != null)
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("uzytkownik") + "=").Append(System.Uri.EscapeDataString(ConvertToString(uzytkownik, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder_.Append(System.Uri.EscapeDataString("uzytkownik") + "=").
+
+                    Append(System.Uri.EscapeDataString(ConvertToString(uzytkownik, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                    
+               
             }
+            if (searchString !=null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("SearchStrig") + "=")
+                   .Append(System.Uri.EscapeDataString(ConvertToString(uzytkownik, System.Globalization.CultureInfo.InvariantCulture))).Append("{searchString}");
+            }
+
             urlBuilder_.Length--;
 
             var client_ = _httpClient;

@@ -47,10 +47,21 @@
                             <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.PozycjaId">Edycja</a>
                             <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.PozycjaId">Szczegóły</a>
                             <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PozycjaId">Usuń</a>
-                            <a class="btn btn-primary" asp-controller="Historia" asp-action="Rent" asp-route-id="@item.PozycjaId">Wypożycz</a>
-                            <a class="btn btn-primary" asp-controller="Historia" asp-action="Return" asp-route-id="@item.PozycjaId">Zwróć</a>
-                        </div>
+                           <br>
+                            <br>
+                            @if (item.Status == false)
+                               
+                            {
+                             
+                                <a class="btn btn-primary"  asp-controller="Historia" asp-action="Rent" asp-route-id="@item.PozycjaId">Wypożycz</a>
+                            }
+                            else
+                            {
+                               
+                                <a class="btn btn-primary" asp-controller="Historia" asp-action="Return" asp-route-id="@item.PozycjaId">Zwróć</a>
 
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

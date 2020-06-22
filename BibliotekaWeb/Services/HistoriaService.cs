@@ -24,11 +24,26 @@ namespace BibliotekaWeb.Services
         }
 
         //GET
-        public async Task<ICollection<Historia>> GetHistoriaAsync(int id)
+        public async Task<ICollection<HistoriaViewModel>> GetHistoriaListAsync(int id)
         {
             BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
-          return   await serviceClient.ApiHistoriaGetAsync(id);
+            ICollection<Historia> dtoItems =  await serviceClient.ApiHistoriaGetAsync(id);
+            return _mapper.Map<ICollection<HistoriaViewModel>>(dtoItems).ToArray();
+
         }
+
+        public async Task<HistoriaViewModel> GetHistoriaAsync(int id)
+        {
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
+            Pozycja dtoItems = await serviceClient.ApiPozycjeGetAsync(id);
+
+            HistoriaViewModel historiaViewModel = new HistoriaViewModel();
+          
+             historiaViewModel.Pozycja = _mapper.Map<BibliotekaDb.Entities.Pozycja>(dtoItems);
+            return historiaViewModel;
+        }
+
+
         //POST
         public async Task PostHistoriaAsync(int id, System.DateTimeOffset dataOd, string osoba)
         {

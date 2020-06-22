@@ -9,8 +9,10 @@ namespace BibliotekaWeb.Services
 {
     public interface IHistoriaService
     {
-        Task<ICollection<Historia>> GetHistoriaAsync(int id);
+        Task<ICollection<HistoriaViewModel>> GetHistoriaListAsync(int id);
         Task PostHistoriaAsync(int id, System.DateTimeOffset dataOd, string osoba);
         Task PutHistoriaAsync(int id, System.DateTimeOffset dataDo);
+        Task<HistoriaViewModel> GetHistoriaAsync(int id);
+
     }
 }

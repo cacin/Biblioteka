@@ -14,6 +14,8 @@ namespace BibliotekaWeb
         {
             CreateMap<PozycjaViewModel, Pozycja>().ReverseMap();
             CreateMap<HistoriaViewModel, Historia>().ReverseMap();
+            CreateMap<BibliotekaDb.Entities.Pozycja, BibliotekaWeb.HttpClients.Pozycja>().ReverseMap();
+
         }
     }
 }

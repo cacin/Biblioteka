@@ -1,4 +1,4 @@
-﻿@model BibliotekaWeb.Models.HistoriaViewModel
+﻿@model BibliotekaWeb.Models.ReturnViewModel
 
 @{
     ViewData["Title"] = "Zwrócenie pozycji";
@@ -41,7 +41,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Powrót do pozycji</a>
+    <a asp-controller="Pozycje" asp-action="Index">Powrót do pozycji</a>
 </div>
 
 @section Scripts {

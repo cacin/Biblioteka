@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Rent">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Pozycja.Tytul" class="control-label"></label>
@@ -23,17 +23,31 @@
                 <input readonly asp-for="Pozycja.Autor" class="form-control" />
                 <span asp-validation-for="Pozycja.Autor" class="text-danger"></span>
             </div>
-            <div  class="form-group">
-                <label  asp-for="Pozycja.Rodzaj" class="control-label"></label>
-                <select  asp-for="Pozycja.Rodzaj" class="form-control">
-                    <option value="0">Książka</option>
-                    <option value="1">DVD</option>
-                    <option value="2">CD</option>
-                    <option value="3">Vinyl</option>
-                </select>
+            <div class="form-group">
+                <!--  <label readonly asp-for="Pozycja.Rodzaj" class="control-label"></label>-->
+                <select asp-for="Pozycja.Rodzaj" class="form-control">
+        <option value="0">Książka</option>
+        <option value="1">DVD</option>
+        <option value="2">CD</option>
+        <option value="3">Vinyl</option>
+    </select>
+                <input readonly asp-for="Pozycja.Rodzaj" class="form-control" />
                 <span asp-validation-for="Pozycja.Rodzaj" class="text-danger"></span>
             </div>
-           <div class="form-group">
+
+            <div class="form-group">
+                <label asp-for="Osoba" class="control-label"></label>
+                <input asp-for="Osoba" class="form-control" />
+                <span asp-validation-for="Osoba" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DataOd" class="control-label"></label>
+                <input asp-for="DataOd" class="form-control" />
+                <span asp-validation-for="DataOd" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <input type="submit" value="Wypożycz" class="btn btn-primary" />
             </div>
         </form>
@@ -41,7 +55,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Powrót do pozycji</a>
+    <a asp-controller="Pozycje" asp-action="Index">Powrót do pozycji</a>
 </div>
 
 @section Scripts {

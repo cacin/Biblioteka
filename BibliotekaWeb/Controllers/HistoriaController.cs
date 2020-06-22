@@ -91,6 +91,17 @@ namespace BibliotekaWeb.Controllers
             return View(historiaViewModel);
         }
 
+        public async Task<IActionResult> Return(int id)
+        {
+            ReturnViewModel returnViewModel = await _historiaService.GetReturnAsync(id);
+
+            if (returnViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(returnViewModel);
+        }
 
 
 

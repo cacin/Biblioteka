@@ -43,6 +43,18 @@ namespace BibliotekaWeb.Services
             return historiaViewModel;
         }
 
+        public async Task<ReturnViewModel> GetReturnAsync(int id)
+        {
+            BibliotekaApiHttpClient serviceClient = new BibliotekaApiHttpClient(_config.Value.BibliotekaApiUrl, httpClient);
+            Pozycja dtoItems = await serviceClient.ApiPozycjeGetAsync(id);
+
+            ReturnViewModel returnViewModel = new ReturnViewModel();
+
+            returnViewModel.Pozycja = _mapper.Map<BibliotekaDb.Entities.Pozycja>(dtoItems);
+            return returnViewModel;
+        }
+
+
 
         //POST
         public async Task PostHistoriaAsync(int id, System.DateTimeOffset dataOd, string osoba)

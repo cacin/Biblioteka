@@ -13,6 +13,7 @@ namespace BibliotekaWeb.Services
         Task PostHistoriaAsync(int id, System.DateTimeOffset dataOd, string osoba);
         Task PutHistoriaAsync(int id, System.DateTimeOffset dataDo);
         Task<HistoriaViewModel> GetHistoriaAsync(int id);
+        Task<ReturnViewModel> GetReturnAsync(int id);
 
     }
 }

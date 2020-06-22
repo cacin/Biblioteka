@@ -1,7 +1,7 @@
 ﻿@model BibliotekaWeb.Models.ReturnViewModel
 
 @{
-    ViewData["Title"] = "Zwrócenie pozycji";
+    ViewData["Title"] = "Return";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -24,15 +24,11 @@
                 <span asp-validation-for="Pozycja.Autor" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Pozycja.Rodzaj" class="control-label"></label>
-                <select  asp-for="Pozycja.Rodzaj" class="form-control">
-                    <option value="0">Książka</option>
-                    <option value="1">DVD</option>
-                    <option value="2">CD</option>
-                    <option value="3">Vinyl</option>
-                </select>
-                <span asp-validation-for="Pozycja.Rodzaj"  class="text-danger"></span>
+                <label asp-for="DataDo" class="control-label"></label>
+                <input  asp-for="DataDo" class="form-control" />
+                <span asp-validation-for="DataDo" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Zwróć" class="btn btn-primary" />
             </div>

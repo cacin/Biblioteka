@@ -30,7 +30,7 @@ namespace BibliotekaWeb.Services
 
         public async Task<string> AddBlobItem(string base64EncodedString)
         {
-            string blobName = new Guid().ToString();
+            string blobName = System.Guid.NewGuid().ToString();
             var base64Stream = StreamExtensions.ConvertFromBase64(base64EncodedString);
 
             if (CloudStorageAccount.TryParse(_storageConnectionString, out CloudStorageAccount storageAccount))

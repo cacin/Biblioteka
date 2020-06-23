@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+BibliotekaAPI/appsettings.json
+BibliotekaWeb/appsettings.json
+BibliotekaWeb/Services/AzureService.cs

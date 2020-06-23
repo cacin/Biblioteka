@@ -2,6 +2,7 @@
 //using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,5 +52,19 @@ namespace BibliotekaWeb.Services
             //}
             return "";
         }
+
+        public async Task<string> DeleteBlobItem(string blobName)
+        {
+            if (CloudStorageAccount.TryParse(_storageConnectionString, out CloudStorageAccount storageAccount))
+            {
+                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                CloudBlobContainer container = blobClient.GetContainerReference(_storageContainerName);
+                var blob = container.GetBlobReference(blobName);
+                await blob.DeleteIfExistsAsync();
+                return blob.Uri.ToString();
+            }
+            return "";
+        }
+       
     }
 }

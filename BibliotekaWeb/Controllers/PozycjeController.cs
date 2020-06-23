@@ -12,6 +12,7 @@ using BibliotekaWeb.Models;
 using Microsoft.AspNetCore.Identity;
 using BibliotekaAuthDb.Entities;
 using BibliotekaDb;
+using System.IO;
 
 namespace BibliotekaWeb.Controllers
 {
@@ -95,7 +96,7 @@ namespace BibliotekaWeb.Controllers
             if (ModelState.IsValid)
             {
                 pozycja.Uzytkownik = uzytkownik.Id;
-                var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath(pozycja.Foto));
+                var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/" + pozycja.Foto));
                 pozycja.Foto = blobUrl;
                 PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);
               
@@ -124,7 +125,11 @@ namespace BibliotekaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status,Uzytkownik")] PozycjaViewModel pozycja)
         {
-            var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath(pozycja.Foto));
+          
+            var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/"+pozycja.Foto));
+            //string FileName = Path.GetFileNameWithoutExtension(blobUrl);
+            //string FileExtension = Path.GetExtension(blobUrl);
+            //FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName.Trim() + FileExtension;
             pozycja.Foto = blobUrl;
             await _pozycjeService.PutPozycjaAsync(id, pozycja);          
             return RedirectToAction(nameof(Index));

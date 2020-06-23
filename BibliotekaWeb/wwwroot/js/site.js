@@ -20,6 +20,10 @@ function previewFiles() {
                 image.title = file.name;
                 image.src = this.result;
                 preview.appendChild(image);
+
+                files = this.result;
+
+                console.log(this.result);
             }, false);
 
             reader.readAsDataURL(file);

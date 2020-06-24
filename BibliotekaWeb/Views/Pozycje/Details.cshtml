@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h1>@Html.DisplayFor(model => model.PozycjaViewModel.Tytul)</h1>
+<h1>@Html.DisplayFor(model => model.PozycjaViewModel.Tytul)</h1>
 
 
 <div class="card" style="width: 18rem;">
@@ -13,74 +13,59 @@
         <h5 class="card-title">@Html.DisplayFor(model => model.PozycjaViewModel.Tytul)</h5>
         <!-- <p class="card-text">@Html.DisplayFor(model => model.PozycjaViewModel.Tytul)</p>-->
     </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item"><span>Autor: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Autor)</li>
-            <li class="list-group-item"><span>Rok wydania: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Rok)</li>
-            <li class="list-group-item"><span>Nośnik: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Rodzaj)</li>
-      
-        </ul>
-        <div class="card-body">
-            <a asp-action="Edit" asp-route-id="@Model.PozycjaViewModel.PozycjaId" class="btn btn-primary">Edycja</a>
-            <a asp-action="Index">Powrót do Pozycji</a>
-        </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span>Autor: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Autor)</li>
+        <li class="list-group-item"><span>Rok wydania: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Rok)</li>
+        <li class="list-group-item"><span>Nośnik: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Rodzaj)</li>
+
+    </ul>
+    <div class="card-body">
+        <a asp-action="Edit" asp-route-id="@Model.PozycjaViewModel.PozycjaId" class="btn btn-primary">Edycja</a>
+        <a asp-action="Index">Powrót do Pozycji</a>
     </div>
+</div>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PozycjaViewModel.Tytul)
+                Osoba
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PozycjaViewModel.Autor)
+                Data od
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PozycjaViewModel.Rok)
+                Data do
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PozycjaViewModel.Rodzaj)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PozycjaViewModel.Foto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PozycjaViewModel.Status)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
         @if (Model.HistoriaViewModels.Count() == 0)
         {
-<tr>
-    <td></td>
-    <td></td>
-    <td>
-        Brak pozycji
-    </td>
-    <td></td>
-    <td></td>
-</tr>
-                <p>Brak wypożyczeń</p> }
-                            else
-                            {
-                @foreach (var item in Model.HistoriaViewModels)
-                {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Osoba)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DataOd)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DataDo)
-    </td>
-</tr>
-                
-                                
-                           
-                        </div>
-                    </div>}}
+            <tr>
+                <td></td>
+                <td>
+                    Brak wypożyczeń
+                </td>
+                <td></td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model.HistoriaViewModels)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Osoba)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataOd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataDo)
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>

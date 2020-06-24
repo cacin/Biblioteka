@@ -94,9 +94,14 @@ namespace BibliotekaWeb.Controllers
             }
 
             if (ModelState.IsValid)
+
+
             {
+                var blob = (pozycja.Foto.Remove(0, 23));
+
                 pozycja.Uzytkownik = uzytkownik.Id;
-                var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/" + pozycja.Foto));
+                //var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/" + pozycja.Foto));
+                var blobUrl = await _azureService.AddBlobItem(blob);
                 pozycja.Foto = blobUrl;
                 PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);
               
@@ -125,11 +130,11 @@ namespace BibliotekaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status,Uzytkownik")] PozycjaViewModel pozycja)
         {
-          
-            var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/"+pozycja.Foto));
-            //string FileName = Path.GetFileNameWithoutExtension(blobUrl);
-            //string FileExtension = Path.GetExtension(blobUrl);
-            //FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName.Trim() + FileExtension;
+
+            var blob = (pozycja.Foto.Remove(0, 23));
+            var blobUrl = await _azureService.AddBlobItem(blob);
+
+            //var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/"+pozycja.Foto));
             pozycja.Foto = blobUrl;
             await _pozycjeService.PutPozycjaAsync(id, pozycja);          
             return RedirectToAction(nameof(Index));

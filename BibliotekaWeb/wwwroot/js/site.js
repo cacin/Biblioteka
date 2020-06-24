@@ -7,13 +7,14 @@ function previewFiles() {
 
     var preview = document.querySelector('#preview');
     var files = document.querySelector('input[type=file]').files;
-
+   
     function readAndPreview(file) {
 
         // Make sure `file.name` matches our extensions criteria
         if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
             var reader = new FileReader();
             preview.innerText = ''
+           
             reader.addEventListener("load", function () {
                 var image = new Image();
                 image.height = 100;
@@ -21,9 +22,14 @@ function previewFiles() {
                 image.src = this.result;
                 preview.appendChild(image);
 
-                files = this.result;
-
-                console.log(this.result);
+                let fotos = document.getElementById('foto');
+                
+                //console.log(fotos);
+                //console.log(fotos.value);
+                //console.log(fotos.files);
+                fotos.value = this.result;
+                
+               // console.log(this.result);
             }, false);
 
             reader.readAsDataURL(file);

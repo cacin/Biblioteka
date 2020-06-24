@@ -24,12 +24,8 @@ function previewFiles() {
 
                 let fotos = document.getElementById('foto');
                 
-                //console.log(fotos);
-                //console.log(fotos.value);
-                //console.log(fotos.files);
-                fotos.value = this.result;
-                
-               // console.log(this.result);
+                fotos.value = this.result.substr(this.result.indexOf(',') + 1);
+               
             }, false);
 
             reader.readAsDataURL(file);
@@ -41,4 +37,7 @@ function previewFiles() {
         [].forEach.call(files, readAndPreview);
     }
 
-}
+};
+function wypozyczona() {
+
+};

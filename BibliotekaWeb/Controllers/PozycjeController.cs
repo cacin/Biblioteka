@@ -95,7 +95,7 @@ namespace BibliotekaWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                var blob = pozycja.Foto.Split("base64,")[1];
+                var blob = pozycja.Foto;
                 pozycja.Uzytkownik = uzytkownik.Id;
                 var blobUrl = await _azureService.AddBlobItem(blob);
                 pozycja.Foto = blobUrl;
@@ -127,7 +127,7 @@ namespace BibliotekaWeb.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status,Uzytkownik")] PozycjaViewModel pozycja)
         {
 
-            var blob = pozycja.Foto.Split("base64,")[1];
+            var blob = pozycja.Foto;
             var blobUrl = await _azureService.AddBlobItem(blob);
 
             //var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/"+pozycja.Foto));

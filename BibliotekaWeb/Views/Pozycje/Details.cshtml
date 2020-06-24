@@ -13,12 +13,28 @@
         <h5 class="card-title">@Html.DisplayFor(model => model.Tytul)</h5>
         <!-- <p class="card-text">@Html.DisplayFor(model => model.Tytul)</p>-->
     </div>
-        <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush">
+        @if (Model.Rodzaj == 0)
+        {
             <li class="list-group-item"><span>Autor: </span>@Html.DisplayFor(model => model.Autor)</li>
-            <li class="list-group-item"><span>Rok wydania: </span>@Html.DisplayFor(model => model.Rok)</li>
-            <li class="list-group-item"><span>Nośnik: </span>@Html.DisplayFor(model => model.Rodzaj)</li>
-      
-        </ul>
+        }
+        else
+        {
+            <li class="list-group-item"><span>Wykonawca: </span>@Html.DisplayFor(model => model.Autor)</li>
+        }
+        
+        <li class="list-group-item"><span>Rok wydania: </span>@Html.DisplayFor(model => model.Rok)</li>
+        <li class="list-group-item"><span>Nośnik: </span>@Html.DisplayFor(model => model.Rodzaj)</li>
+        @if (Model.Status)
+        {
+            <li class="list-group-item rent">Status: <span>Wypożyczona</span></li>
+        }
+        else
+        {
+            <li class="list-group-item return">Status: <span>Dostępna</span></li>
+        }
+
+    </ul>
         <div class="card-body">
             <a asp-action="Edit" asp-route-id="@Model.PozycjaId" class="btn btn-primary">Edycja</a>
             <a asp-action="Index">Powrót do Pozycji</a>

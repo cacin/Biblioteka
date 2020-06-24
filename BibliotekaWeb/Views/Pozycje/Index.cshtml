@@ -39,11 +39,25 @@
                         <div class="card-body">
                             <h5 class="card-title">@Html.DisplayFor(modelItem => item.Tytul) </h5>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><span>Autor: </span>@Html.DisplayFor(modelItem => item.Autor)</li>
-                                <li class="list-group-item"><span>Rok wydania: </span>@Html.DisplayFor(modelItem => item.Rok)</li>
-                                <li class="list-group-item"><span>Nośnik: </span>@Html.DisplayFor(modelItem => item.Rodzaj)</li>
-                                <li class="list-group-item"><span>Wypożyczona: </span>@Html.DisplayFor(modelItem => item.Status)</li>
-                            </ul>
+                                @if (item.Rodzaj == 0)
+                                {
+                                    <li class="list-group-item"><span>Autor: </span>@Html.DisplayFor(modelItem => item.Autor)</li>
+                                }
+                                else
+                                { 
+                                    <li class="list-group-item"><span>Wykonawca: </span>@Html.DisplayFor(modelItem => item.Autor)</li>
+                                }
+                                    <li class="list-group-item"><span>Rok wydania: </span>@Html.DisplayFor(modelItem => item.Rok)</li>
+                                    <li class="list-group-item"><span>Nośnik: </span>@Html.DisplayFor(modelItem => item.Rodzaj)</li>
+                                    @if (item.Status)
+                                    {
+                                        <li class="list-group-item rent">Status: <span>Wypożyczona</span></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-group-item return">Status: <span>Dostępna</span></li>
+                                    }
+                                </ul>
                             <div class="card-footer form-group">
                                 <div class="btn-group btn-block" role="group" aria-label="Basic example ">
                                     <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.PozycjaId">Edycja</a>

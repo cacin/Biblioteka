@@ -146,7 +146,7 @@ namespace BibliotekaWeb.Controllers
 
 
             //var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/"+pozycja.Foto));
-            pozycja.Foto = blobUrl;
+            
 
             if (pozycja.Foto != null && pozycja.Foto.Contains("base64,")) // jak jest blob do przetworzenia
             {

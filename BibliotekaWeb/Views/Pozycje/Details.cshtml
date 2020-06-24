@@ -1,79 +1,118 @@
-﻿@model BibliotekaWeb.Models.PozycjaViewModel
+﻿@model BibliotekaWeb.Models.PozycjaHistoriaViewModel
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h1>@Html.DisplayFor(model => model.Tytul)</h1>
+    <h1>@Html.DisplayFor(model => model.PozycjaViewModel.Tytul)</h1>
 
 
 <div class="card" style="width: 18rem;">
-    <img src=@Html.DisplayFor(model => model.Foto) class="card-img-top" alt=@Html.DisplayFor(model => model.Tytul)>
+    <img src=@Html.DisplayFor(model => model.PozycjaViewModel.Foto) class="card-img-top" alt=@Html.DisplayFor(model => model.PozycjaViewModel.Tytul)>
     <div class="card-body">
-        <h5 class="card-title">@Html.DisplayFor(model => model.Tytul)</h5>
-        <!-- <p class="card-text">@Html.DisplayFor(model => model.Tytul)</p>-->
+        <h5 class="card-title">@Html.DisplayFor(model => model.PozycjaViewModel.Tytul)</h5>
+        <!-- <p class="card-text">@Html.DisplayFor(model => model.PozycjaViewModel.Tytul)</p>-->
     </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item"><span>Autor: </span>@Html.DisplayFor(model => model.Autor)</li>
-            <li class="list-group-item"><span>Rok wydania: </span>@Html.DisplayFor(model => model.Rok)</li>
-            <li class="list-group-item"><span>Nośnik: </span>@Html.DisplayFor(model => model.Rodzaj)</li>
+            <li class="list-group-item"><span>Autor: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Autor)</li>
+            <li class="list-group-item"><span>Rok wydania: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Rok)</li>
+            <li class="list-group-item"><span>Nośnik: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Rodzaj)</li>
       
         </ul>
         <div class="card-body">
-            <a asp-action="Edit" asp-route-id="@Model.PozycjaId" class="btn btn-primary">Edycja</a>
+            <a asp-action="Edit" asp-route-id="@Model.PozycjaViewModel.PozycjaId" class="btn btn-primary">Edycja</a>
             <a asp-action="Index">Powrót do Pozycji</a>
         </div>
     </div>
 
-    <!--
-    <div>
-        <h4>Pozycja</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Tytul)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Tytul)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Autor)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Autor)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Rok)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Rok)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Rodzaj)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Rodzaj)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Foto)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Foto)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Status)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Status)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.PozycjaId" class="btn btn-primary">Edycja</a>
-       </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PozycjaViewModel.Tytul)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PozycjaViewModel.Autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PozycjaViewModel.Rok)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PozycjaViewModel.Rodzaj)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PozycjaViewModel.Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PozycjaViewModel.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+<tr>
+    <td></td>
+    <td></td>
+    <td>
+        Brak pozycji
+    </td>
+    <td></td>
+    <td></td>
+</tr>
+                <p>Brak pozycji w bibliotece</p> }
+                            else
+                            {
+                @foreach (var item in Model)
+                {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tytul)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Autor)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Rok)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Rodzaj)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Foto)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@item.PozycjaId">Edycja</a> |
+        <a asp-action="Details" asp-route-id="@item.PozycjaId">Szczegóły</a> |
+        <a asp-action="Delete" asp-route-id="@item.PozycjaId">Usuń</a>
+    </td>
+</tr>
 
-    <div>
-        <br>
-        <a asp-action="Index">Powrót do Pozycji</a>
-    </div>
-        -->
+                    <div class="row row-cols-1 row-cols-md-2">
+                        <div class="col mb-4" style="flex-basis: 33%">
+                            <div class="card">
+                                <img src="@item.Foto" class="card-img-top" alt="@item.Tytul">
+                                <div class="card-body">
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Tytul) </h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><span>Autor: </span>@Html.DisplayFor(modelItem => item.Autor)</li>
+                                        <li class="list-group-item"><span>Rok wydania: </span>@Html.DisplayFor(modelItem => item.Rok)</li>
+                                        <li class="list-group-item"><span>Nośnik: </span>@Html.DisplayFor(modelItem => item.Rodzaj)</li>
+                                        <li class="list-group-item"><span>Wypożyczona: </span>@Html.DisplayFor(modelItem => item.Status)</li>
+                                    </ul>
+                                    <div class="card-footer form-group">
+                                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.PozycjaId">Edycja</a>
+                                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.PozycjaId">Szczegóły</a>
+                                        <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.PozycjaId">Usuń</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>}}
+    </tbody>
+</table>

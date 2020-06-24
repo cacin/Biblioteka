@@ -851,7 +851,7 @@ namespace BibliotekaWeb.HttpClients
         public System.DateTimeOffset DataOd { get; set; }
 
         [Newtonsoft.Json.JsonProperty("dataDo", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? DataDo { get; set; }
+        public System.DateTime? DataDo { get; set; }
 
         [Newtonsoft.Json.JsonProperty("osoba", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Osoba { get; set; }

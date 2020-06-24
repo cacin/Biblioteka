@@ -78,13 +78,13 @@ namespace BibliotekaWeb.Controllers
         // POST: Pozycje/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPut]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Return(int id, [Bind("Id, DataDo, Pozycja")] ReturnViewModel historia)
 
         { 
             await _historiaService.PutHistoriaAsync(historia.Pozycja.PozycjaId, historia.DataDo);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), "Pozycje");
         }
 
     }

@@ -14,10 +14,25 @@
         <!-- <p class="card-text">@Html.DisplayFor(model => model.PozycjaViewModel.Tytul)</p>-->
     </div>
     <ul class="list-group list-group-flush">
+        @if (Model.PozycjaViewModel.Rodzaj == 0)
+        {
+            <li class="list-group-item"><span>Autor: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Autor)</li>
+        }
+        else
+        {
+            <li class="list-group-item"><span>Wykonawca: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Autor)</li>
+        }
         <li class="list-group-item"><span>Autor: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Autor)</li>
         <li class="list-group-item"><span>Rok wydania: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Rok)</li>
         <li class="list-group-item"><span>Nośnik: </span>@Html.DisplayFor(model => model.PozycjaViewModel.Rodzaj)</li>
-
+        @if (Model.PozycjaViewModel.Status)
+        {
+            <li class="list-group-item rent">Status: <span>Wypożyczona</span></li>
+        }
+        else
+        {
+            <li class="list-group-item return">Status: <span>Dostępna</span></li>
+        }
     </ul>
     <div class="card-body">
         <a asp-action="Edit" asp-route-id="@Model.PozycjaViewModel.PozycjaId" class="btn btn-primary">Edycja</a>

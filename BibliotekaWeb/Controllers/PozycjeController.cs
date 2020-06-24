@@ -97,10 +97,11 @@ namespace BibliotekaWeb.Controllers
 
 
             {
+               //string fullPath = Path.GetFullPath(pozycja.Foto);
                 var blob = (pozycja.Foto.Remove(0, 23));
 
                 pozycja.Uzytkownik = uzytkownik.Id;
-                //var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/" + pozycja.Foto));
+               // var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/" + pozycja.Foto));
                 var blobUrl = await _azureService.AddBlobItem(blob);
                 pozycja.Foto = blobUrl;
                 PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);

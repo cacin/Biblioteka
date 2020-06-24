@@ -95,10 +95,13 @@ namespace BibliotekaWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                var blob = pozycja.Foto.Split("base64,")[1];
+                if (pozycja.Foto != null && pozycja.Foto.Contains("base64,")) // jak jest blob do przetworzenia
+                {
+                    var blob = pozycja.Foto.Split("base64,")[1];
+                    var blobUrl = await _azureService.AddBlobItem(blob);
+                    pozycja.Foto = blobUrl;
+                }
                 pozycja.Uzytkownik = uzytkownik.Id;
-                var blobUrl = await _azureService.AddBlobItem(blob);
-                pozycja.Foto = blobUrl;
                 PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);
               
                 return RedirectToAction(nameof(Index));
@@ -127,11 +130,12 @@ namespace BibliotekaWeb.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status,Uzytkownik")] PozycjaViewModel pozycja)
         {
 
-            var blob = pozycja.Foto.Split("base64,")[1];
-            var blobUrl = await _azureService.AddBlobItem(blob);
-
-            //var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/"+pozycja.Foto));
-            pozycja.Foto = blobUrl;
+            if (pozycja.Foto != null && pozycja.Foto.Contains("base64,")) // jak jest blob do przetworzenia
+            {
+                var blob = pozycja.Foto.Split("base64,")[1];
+                var blobUrl = await _azureService.AddBlobItem(blob);
+                pozycja.Foto = blobUrl;
+            }
             await _pozycjeService.PutPozycjaAsync(id, pozycja);          
             return RedirectToAction(nameof(Index));
         }

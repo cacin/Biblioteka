@@ -397,7 +397,9 @@ namespace BibliotekaWeb.HttpClients
         public async System.Threading.Tasks.Task<Pozycja> ApiPozycjePostAsync(Pozycja body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            var fotos = Path.GetFullPath(body.Foto);
+            string fotos="";
+            if (body.Foto != null)
+                { fotos = Path.GetFullPath(body.Foto); }
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Pozycje");
 
             var client_ = _httpClient;

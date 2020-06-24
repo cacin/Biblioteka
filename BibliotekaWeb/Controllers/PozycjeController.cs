@@ -22,18 +22,23 @@ namespace BibliotekaWeb.Controllers
         private readonly IPozycjeService _pozycjeService;
         private readonly IAzureService _azureService;
         private readonly UserManager<AppUser> _userManager;
-       
+        private readonly IHistoriaService _historiaService;
 
-      
+
+
         public PozycjeController( 
             IPozycjeService pozycjeService,
             IAzureService azureService,
-            UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager,
+            IHistoriaService historiaService
+            )
+
         {
             //_context = context;
             _pozycjeService = pozycjeService;
             _azureService = azureService;
             _userManager = userManager;
+            _historiaService = historiaService;
         }
 
         // GET: Pozycje
@@ -62,6 +67,13 @@ namespace BibliotekaWeb.Controllers
         public async Task<IActionResult> Details(int id)
         {
             PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(id);
+            ICollection<HistoriaViewModel> historiaViewModels = await _historiaService.GetHistoriaListAsync(id);
+
+
+            PozycjaHistoriaViewModel pozycjaHistoriaViewModel = new PozycjaHistoriaViewModel();
+
+            pozycjaHistoriaViewModel.PozycjaViewModel = pozycjaViewModel;
+            pozycjaHistoriaViewModel.HistoriaViewModels = historiaViewModels;
 
             /*var pozycja = await _context.Pozycje
                 .FirstOrDefaultAsync(m => m.PozycjaId == id);
@@ -71,7 +83,7 @@ namespace BibliotekaWeb.Controllers
                 return NotFound();
             }
 
-            return View(pozycjaViewModel);
+            return View(pozycjaHistoriaViewModel);
         }
 
         // GET: Pozycje/Create;
@@ -95,10 +107,15 @@ namespace BibliotekaWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                var blob = pozycja.Foto;
+
+                if (pozycja.Foto != null && pozycja.Foto.Contains("base64,")) // jak jest blob do przetworzenia
+                {
+                    var blob = pozycja.Foto;
+                    var blobUrl = await _azureService.AddBlobItem(blob);
+                    pozycja.Foto = blobUrl;
+                }
+
                 pozycja.Uzytkownik = uzytkownik.Id;
-                var blobUrl = await _azureService.AddBlobItem(blob);
-                pozycja.Foto = blobUrl;
                 PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);
               
                 return RedirectToAction(nameof(Index));
@@ -127,11 +144,17 @@ namespace BibliotekaWeb.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status,Uzytkownik")] PozycjaViewModel pozycja)
         {
 
-            var blob = pozycja.Foto;
-            var blobUrl = await _azureService.AddBlobItem(blob);
 
             //var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/"+pozycja.Foto));
             pozycja.Foto = blobUrl;
+
+            if (pozycja.Foto != null && pozycja.Foto.Contains("base64,")) // jak jest blob do przetworzenia
+            {
+                var blob = pozycja.Foto;
+                var blobUrl = await _azureService.AddBlobItem(blob);
+                pozycja.Foto = blobUrl;
+            }
+
             await _pozycjeService.PutPozycjaAsync(id, pozycja);          
             return RedirectToAction(nameof(Index));
         }

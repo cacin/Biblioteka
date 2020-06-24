@@ -12,6 +12,7 @@
 
 namespace BibliotekaWeb.HttpClients
 {
+    using System.IO;
     using System.Security.Policy;
     using System = global::System;
 
@@ -385,6 +386,7 @@ namespace BibliotekaWeb.HttpClients
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public System.Threading.Tasks.Task<Pozycja> ApiPozycjePostAsync(Pozycja body)
         {
+            //var fotos1 = Path.GetFullPath(body.Foto);
             return ApiPozycjePostAsync(body, System.Threading.CancellationToken.None);
         }
 
@@ -395,6 +397,9 @@ namespace BibliotekaWeb.HttpClients
         public async System.Threading.Tasks.Task<Pozycja> ApiPozycjePostAsync(Pozycja body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
+            string fotos="";
+            if (body.Foto != null)
+                { fotos = Path.GetFullPath(body.Foto); }
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Pozycje");
 
             var client_ = _httpClient;

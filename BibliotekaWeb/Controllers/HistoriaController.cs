@@ -31,54 +31,7 @@ namespace BibliotekaWeb.Controllers
     
         }
 
-        // GET: Pozycje
-        /*      public async Task<IActionResult> Index()
-              {
-                  //return View(await _context.Pozycje.ToListAsync());
-                  var uzytkownik = await _userManager.GetUserAsync(User);
-                  if (uzytkownik == null)
-                  {
-                      return Challenge();
-                  }
-
-
-                  PozycjaViewModel[] pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(uzytkownik.Id);
-                  /*if (pozycjaViewModel == null || pozycjaViewModel.Count() == 0)
-                  {
-                      return NotFound();
-                  }
-
-                  return View(pozycjaViewModel);
-              }
-
-              // GET: Pozycje/Details/5
-              public async Task<IActionResult> Details(int id)
-              {
-                  PozycjaViewModel pozycjaViewModel = await _pozycjeService.GetPozycjaAsync(id);
-
-                  /*var pozycja = await _context.Pozycje
-                      .FirstOrDefaultAsync(m => m.PozycjaId == id);
-
-                  if (pozycjaViewModel == null)
-                  {
-                      return NotFound();
-                  }
-
-                  return View(pozycjaViewModel);
-              }
-
-              // GET: Pozycje/Create;
-              public IActionResult Create()
-              {
-                  return View();
-              }
-
-              // POST: Pozycje/Create
-              // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-              // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-          */
-        // GET: Pozycje/Edit/5
+             // GET: Pozycje/Edit/5
         public async Task<IActionResult> Rent(int id)
         {
             HistoriaViewModel historiaViewModel = await _historiaService.GetHistoriaAsync(id);

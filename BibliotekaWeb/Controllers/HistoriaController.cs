@@ -116,7 +116,7 @@ namespace BibliotekaWeb.Controllers
             {
               await _historiaService.PostHistoriaAsync(historia.Pozycja.PozycjaId,  historia.DataOd, historia.Osoba);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Pozycje");
             }
             return View(historia);
         }

@@ -94,14 +94,9 @@ namespace BibliotekaWeb.Controllers
             }
 
             if (ModelState.IsValid)
-
-
             {
-               //string fullPath = Path.GetFullPath(pozycja.Foto);
-                var blob = (pozycja.Foto.Remove(0, 23));
-
+                var blob = pozycja.Foto.Split("base64,")[1];
                 pozycja.Uzytkownik = uzytkownik.Id;
-               // var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/" + pozycja.Foto));
                 var blobUrl = await _azureService.AddBlobItem(blob);
                 pozycja.Foto = blobUrl;
                 PozycjaViewModel pozycjaViewModel = await _pozycjeService.PostPozycjaAsync(pozycja);
@@ -127,12 +122,12 @@ namespace BibliotekaWeb.Controllers
         // POST: Pozycje/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPut]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PozycjaId,Tytul,Autor,Rok,Rodzaj,Foto,Status,Uzytkownik")] PozycjaViewModel pozycja)
         {
 
-            var blob = (pozycja.Foto.Remove(0, 23));
+            var blob = pozycja.Foto.Split("base64,")[1];
             var blobUrl = await _azureService.AddBlobItem(blob);
 
             //var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/"+pozycja.Foto));
@@ -155,20 +150,12 @@ namespace BibliotekaWeb.Controllers
         }
 
         // POST: Pozycje/Delete/5
-        [HttpDelete, ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             PozycjaViewModel pozycjaViewModel = await _pozycjeService.DeletePozycjaAsync(id);
 
-            //_context.Remove(pozycjaViewModel);
-            //await _context.SaveChangesAsync();
-            /*     var pozycja = await _context.Pozycje.FindAsync(id);
-
-            _context.Pozycje.Remove(pozycja);
-            await _context.SaveChangesAsync();
-
-            return Ok(pozycja);*/
             return RedirectToAction(nameof(Index));
             
         }

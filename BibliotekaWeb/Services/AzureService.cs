@@ -21,10 +21,10 @@ namespace BibliotekaWeb.Services
             return azureStorageClient.AddBlobItem(blobBase64);
 
         }
-        public Task<string> DeleteBlobItem(string blobPath)
+        public Task DeleteBlobItem(string blobUri)
         {
             BibliotekaAzureStorageClient azureStorageClient = new BibliotekaAzureStorageClient(_config.Value.StorageConnectionString, _config.Value.StorageContainerName);
-            return azureStorageClient.DeleteBlobItem(blobPath);
+            return azureStorageClient.DeleteBlobItem(blobUri);
 
         }
     }

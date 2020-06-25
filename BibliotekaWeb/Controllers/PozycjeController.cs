@@ -178,6 +178,10 @@ namespace BibliotekaWeb.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             PozycjaViewModel pozycjaViewModel = await _pozycjeService.DeletePozycjaAsync(id);
+            if (pozycjaViewModel.Foto != null) // jak jest blob do przetworzenia
+            {
+                await _azureService.DeleteBlobItem(pozycjaViewModel.Foto);
+            }
 
             return RedirectToAction(nameof(Index));
             

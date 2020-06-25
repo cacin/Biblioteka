@@ -108,7 +108,7 @@ namespace BibliotekaWeb.Controllers
             if (ModelState.IsValid)
             {
 
-                if (pozycja.Foto != null && pozycja.Foto.Contains("base64,")) // jak jest blob do przetworzenia
+                if (pozycja.Foto != null) // jak jest blob do przetworzenia
                 {
                     var blob = pozycja.Foto;
                     var blobUrl = await _azureService.AddBlobItem(blob);
@@ -148,7 +148,7 @@ namespace BibliotekaWeb.Controllers
             //var blobUrl = await _azureService.AddBlobItem(StreamExtensions.ConvertToBase64FromPath("c:/temp/"+pozycja.Foto));
             
 
-            if (pozycja.Foto != null && pozycja.Foto.Contains("base64,")) // jak jest blob do przetworzenia
+            if (pozycja.Foto != null) // jak jest blob do przetworzenia
             {
                 var blob = pozycja.Foto;
                 var blobUrl = await _azureService.AddBlobItem(blob);

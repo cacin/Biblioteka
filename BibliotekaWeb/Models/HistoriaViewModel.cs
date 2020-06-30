@@ -12,8 +12,10 @@ namespace BibliotekaWeb.Models
         public int HisoriaID { get; set; }
         [Required]
         [Display(Name = "Data wypożyczenia", Description = "Data wypożyczenia")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTimeOffset DataOd { get; set; }
         [Display(Name = "Data zwrócenia", Description = "Data zwrócenia")]
+        [DisplayFormat (DataFormatString ="{0:d}")]
         public DateTime? DataDo { get; set; }
         [Required]
         [Display(Name = "Osoba wypożyczająca", Description = "Osoba wypożyczająca")]

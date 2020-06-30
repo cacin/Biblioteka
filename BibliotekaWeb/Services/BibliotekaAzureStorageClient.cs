@@ -53,17 +53,18 @@ namespace BibliotekaWeb.Services
             return "";
         }
 
-        public async Task<string> DeleteBlobItem(string blobName)
+        public async Task DeleteBlobItem(string blobUri)
         {
             if (CloudStorageAccount.TryParse(_storageConnectionString, out CloudStorageAccount storageAccount))
             {
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer container = blobClient.GetContainerReference(_storageContainerName);
+                var blockBlob = new CloudBlockBlob(new Uri(blobUri));
+                var blobName = blockBlob.Name;
                 var blob = container.GetBlobReference(blobName);
+
                 await blob.DeleteIfExistsAsync();
-                return blob.Uri.ToString();
             }
-            return "";
         }
        
     }
